@@ -1,5 +1,5 @@
 from conan import ConanFile
-from conan.tools.files import get, copy
+from conan.tools.files import get, copy, collect_libs
 import os
 
 class wpiutilRecipe(ConanFile):
@@ -30,8 +30,8 @@ class wpiutilRecipe(ConanFile):
         copy(self, "*.lib", self.build_folder, os.path.join(self.package_folder, "lib"), False)
         copy(self, "*.a", self.build_folder, os.path.join(self.package_folder, "lib"), False)
         copy(self, "*.so", self.build_folder, os.path.join(self.package_folder, "lib"), False)
+        copy(self, "*.dylib", self.build_folder, os.path.join(self.package_folder, "lib"), False)
         copy(self, "*.dll", self.build_folder, os.path.join(self.package_folder, "bin"), False)
 
     def package_info(self):
-        self.cpp_info.libs = ["wpiutil"]
-        self.cpp_info.bindirs = ['bin']
+        self.cpp_info.libs = collect_libs(self)
