@@ -1,0 +1,31 @@
+name: Package And Test Wpilib
+
+on: [push]
+
+jobs:
+    build:
+        runs-on: ${{ matrix.os }}
+
+        strategy:
+            matrix:
+                os: [ubuntu-latest, windows-latest]
+        steps:
+            - name: Checkout 
+            - uses: actions/checkout@v3
+
+            - name: Get Conan
+            - uses: turtlebrowser/get-conan@v1.2
+
+            - name: Create default profile
+              run: conan profile new default --detect
+
+            - name: Make Wpicommon package
+              working-directory: ./wpicommon
+              run: |
+                conan create .
+
+            - name: Make Wpiutil package
+              working-directory: ./wpiutil
+              run: | 
+                conan create .
+
