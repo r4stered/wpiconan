@@ -7,6 +7,9 @@ class WpiCommon:
         _arch = arch.lower().replace("_", "-")
         _debug = debug.lower()
 
+        if _os == "osx":
+            _arch = "universal"
+
         base_url = f"https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/{library_name}/{library_name}-cpp/{version}/{library_name}-cpp-{version}-"
         header_url = base_url + "headers.zip"
 
