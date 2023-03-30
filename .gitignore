@@ -154,3 +154,5 @@ cython_debug/
 
 # cmake vscode stuff
 .vscode
+
+**/CMakeUserPresets.json
