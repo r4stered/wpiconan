@@ -29,6 +29,7 @@ class wpiutilRecipe(ConanFile):
         copy(self, "*.h", self.build_folder, os.path.join(self.package_folder, "include"))
         copy(self, "*.lib", self.build_folder, os.path.join(self.package_folder, "lib"), False)
         copy(self, "*.a", self.build_folder, os.path.join(self.package_folder, "lib"), False)
+        copy(self, "*.so", self.build_folder, os.path.join(self.package_folder, "lib"), False)
         copy(self, "*.dll", self.build_folder, os.path.join(self.package_folder, "bin"), False)
 
     def package_info(self):
