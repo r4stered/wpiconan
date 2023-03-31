@@ -10,7 +10,7 @@ class wpiutilRecipe(ConanFile):
 
     # Optional metadata
     license = "https://github.com/wpilibsuite/allwpilib/blob/main/LICENSE.md"
-    author = "Drew Williamns williams.r.drew@gmail.com"
+    author = "Drew Williams williams.r.drew@gmail.com"
     url = "https://github.com/r4stered/wpiconan"
     description = "Repackage of wpiutil library; a part of allwpilib. See https://github.com/r4stered/allwpilib for source."
     topics = ("robotics", "frc", "utility")

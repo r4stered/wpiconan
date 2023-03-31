@@ -9,6 +9,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
+                config: [dbg_shared, dbg_static, rel_shared, rel_static]
         steps:
             - name: Checkout 
               uses: actions/checkout@v3
@@ -19,13 +20,16 @@ jobs:
             - name: Create default profile
               run: conan profile detect
 
+            - name: Load config profile
+              run: conan profile detect
+
             - name: Make Wpicommon package
               working-directory: ./wpicommon
               run: |
-                conan create .
+                conan create . --pr ../.github/ci_conan_profiles/${{ matrix.config }}
 
             - name: Make Wpiutil package
               working-directory: ./wpiutil
               run: | 
-                conan create .
+                conan create . --pr ../.github/ci_conan_profiles/${{ matrix.config }}
 
