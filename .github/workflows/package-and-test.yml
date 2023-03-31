@@ -23,10 +23,10 @@ jobs:
             - name: Make Wpicommon package
               working-directory: ./wpicommon
               run: |
-                conan create . --profile ../.github/ci_conan_profiles/${{ matrix.config }}
+                conan create . --profile default --profile ../.github/ci_conan_profiles/${{ matrix.config }}
 
             - name: Make Wpiutil package
               working-directory: ./wpiutil
               run: | 
-                conan create . --profile ../.github/ci_conan_profiles/${{ matrix.config }}
+                conan create . --profile default --profile ../.github/ci_conan_profiles/${{ matrix.config }}
 
