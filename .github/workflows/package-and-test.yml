@@ -21,7 +21,7 @@ jobs:
             - name: Create default profile
               run: conan profile detect
 
-            - name: Create default profile
+            - name: Rio toolchain
               if: ${{ matrix.rio_crossbuild }}
               working-directory: ./riotoolchain
               run: |
@@ -29,15 +29,13 @@ jobs:
 
             - name: Make Wpicommon package
               working-directory: ./wpicommon
-              env:
-                PROFILE_NAME: ${{ matrix.rio_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/rio_toolchain' || '' }}
               run: |
-                conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} $PROFILE_NAME
+                conan create .
 
             - name: Make Wpiutil package
               working-directory: ./wpiutil
               env:
-                PROFILE_NAME: ${{ matrix.rio_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/rio_toolchain' || '' }}
+                PROFILE_NAME: ${{ matrix.rio_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/rio_toolchain --profile:host../.github/ci_conan_profiles/${{ matrix.config }}' || '' }}
               run: |
                 conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} $PROFILE_NAME
 
