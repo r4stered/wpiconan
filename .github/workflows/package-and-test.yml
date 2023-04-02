@@ -37,5 +37,5 @@ jobs:
               env:
                 PROFILE_NAME: ${{ matrix.rio_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/rio_toolchain' || '' }}
               run: |
-                conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} $PROFILE_NAME --profile:host../.github/ci_conan_profiles/${{ matrix.config }}
+                conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} $PROFILE_NAME --profile:host ../.github/ci_conan_profiles/${{ matrix.config }}
 
