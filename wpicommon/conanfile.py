@@ -34,7 +34,7 @@ class testPackageBase:
         self.requires(self.tested_reference_str)
 
     def generate(self):
-        tc = CMakeToolchain(self, generator="Ninja")
+        tc = CMakeToolchain(self)
         tc.generate()
 
     def layout(self):
