@@ -17,7 +17,7 @@ class wpiutilRecipe(ConanFile):
 
     # Binary configuration
     settings = "os", "build_type", "arch"
-    options = {"shared": [True, False]}
+    options = {"shared": [True, False], "target": [None, "ANY"]}
     default_options = {"shared": True}
 
     def build(self):

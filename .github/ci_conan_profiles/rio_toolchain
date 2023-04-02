@@ -1,0 +1,13 @@
+[settings]
+arch=armv7
+compiler=gcc
+compiler.cppstd=20
+compiler.version=12.1
+compiler.libcxx=libstdc++11
+os=Linux
+
+[options]
+target = armv7
+
+[tool_requires]
+riotoolchain/v2023-8

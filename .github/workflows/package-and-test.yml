@@ -10,6 +10,7 @@ jobs:
             matrix:
                 os: [ubuntu-latest, windows-latest, macos-latest]
                 config: [dbg_shared, dbg_static, rel_shared, rel_static]
+                rio_crossbuild: [true, false]
         steps:
             - name: Checkout 
               uses: actions/checkout@v3
@@ -22,11 +23,15 @@ jobs:
 
             - name: Make Wpicommon package
               working-directory: ./wpicommon
+              env:
+                PROFILE_NAME: ${{ matrix.rio_crossbuild == true && '--profile:host ../../.github/ci_conan_profiles/rio_toolchain' || '' }}
               run: |
-                conan create . --profile default --profile ../.github/ci_conan_profiles/${{ matrix.config }}
+                conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} ${{PROFILE_NAME}}
 
             - name: Make Wpiutil package
               working-directory: ./wpiutil
-              run: | 
-                conan create . --profile default --profile ../.github/ci_conan_profiles/${{ matrix.config }}
+              env:
+                PROFILE_NAME: ${{ matrix.rio_crossbuild == true && '--profile:host ../../.github/ci_conan_profiles/rio_toolchain' || '' }}
+              run: |
+                conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} ${{PROFILE_NAME}}
 

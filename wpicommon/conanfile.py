@@ -13,6 +13,9 @@ class WpiCommon:
         if _os == "osx":
             _arch = "universal"
 
+        if _os == "linux" and arch == "armv7":
+            _arch = "athena"
+
         base_url = f"https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/{library_name}/{library_name}-cpp/{version}/{library_name}-cpp-{version}-"
         header_url = base_url + "headers.zip"
 
@@ -31,7 +34,7 @@ class testPackageBase:
         self.requires(self.tested_reference_str)
 
     def generate(self):
-        tc = CMakeToolchain(self)
+        tc = CMakeToolchain(self, generator="Ninja")
         tc.generate()
 
     def layout(self):
