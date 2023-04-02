@@ -72,9 +72,10 @@ class riotoolchainRecipe(ConanFile):
         tc.variables["CMAKE_SYSTEM_VERSION"] = "1"
         tc.variables["CMAKE_SYSTEM_PROCESSOR"] = "arm"
         tc.variables["CMAKE_SYSROOT"] = os.path.join(self.package_folder, "roborio-academic", "arm-nilrt-linux-gnueabi", "sysroot").replace(os.sep, '/')
-        tc.variables["CMAKE_C_FLAGS"] = "-Wno-psabi"
-        tc.variables["CMAKE_CXX_FLAGS"] = "-Wno-psabi"
-        tc.variables["CMAKE_Fortran_FLAGS"] = "-Wno-psabi"
+        if str(self.settings_build.os) != "Windows":
+            tc.variables["CMAKE_C_FLAGS"] = "-Wno-psabi"
+            tc.variables["CMAKE_CXX_FLAGS"] = "-Wno-psabi"
+            tc.variables["CMAKE_Fortran_FLAGS"] = "-Wno-psabi"
         tc.variables["CMAKE_C_COMPILER"] = os.path.join(bin_folder, "arm-frc2023-linux-gnueabi-gcc" + ext_str).replace(os.sep, '/')
         tc.variables["CMAKE_CXX_COMPILER"] = os.path.join(bin_folder, "arm-frc2023-linux-gnueabi-g++" + ext_str).replace(os.sep, '/')
         tc.variables["CMAKE_Fortran_COMPILER"] = os.path.join(bin_folder, "arm-frc2023-linux-gnueabi-gfortran" + ext_str).replace(os.sep, '/')
