@@ -21,6 +21,12 @@ jobs:
             - name: Create default profile
               run: conan profile detect
 
+            - name: Create default profile
+              if: ${{ rio_crossbuild }}
+              working-directory: ./riotoolchain
+              run: |
+                conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} --profile:host ../.github/ci_conan_profiles/rio_toolchain
+
             - name: Make Wpicommon package
               working-directory: ./wpicommon
               env:
