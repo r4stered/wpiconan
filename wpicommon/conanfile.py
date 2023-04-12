@@ -61,6 +61,9 @@ class WpiCommon:
             self, "*.h", self.build_folder, os.path.join(self.package_folder, "include")
         )
         copy(
+            self, "*.inc", self.build_folder, os.path.join(self.package_folder, "include")
+        )
+        copy(
             self,
             "*.lib",
             self.build_folder,
