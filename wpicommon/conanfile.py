@@ -45,7 +45,7 @@ class WpiCommon:
         return (header_url, lib_url)
 
     def build(self):
-        header_url, lib_url = super().generate_download_urls(
+        header_url, lib_url = self.generate_download_urls(
             self.name,
             self.version,
             str(self.settings.os),
