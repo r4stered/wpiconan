@@ -2,6 +2,7 @@ from conan import ConanFile
 from conan.tools.files import get, copy, collect_libs
 import os
 
+
 class wpiutilRecipe(ConanFile):
     name = "wpiutil"
     version = "2023.4.3"
@@ -21,17 +22,56 @@ class wpiutilRecipe(ConanFile):
     default_options = {"shared": True}
 
     def build(self):
-        header_url, lib_url = super().generate_download_urls(self.name, self.version, str(self.settings.os), str(self.settings.arch), self.options.shared, str(self.settings.build_type))
+        header_url, lib_url = super().generate_download_urls(
+            self.name,
+            self.version,
+            str(self.settings.os),
+            str(self.settings.arch),
+            self.options.shared,
+            str(self.settings.build_type),
+        )
         get(self, header_url)
         get(self, lib_url)
 
     def package(self):
-        copy(self, "*.h", self.build_folder, os.path.join(self.package_folder, "include"))
-        copy(self, "*.lib", self.build_folder, os.path.join(self.package_folder, "lib"), False)
-        copy(self, "*.a", self.build_folder, os.path.join(self.package_folder, "lib"), False)
-        copy(self, "*.so", self.build_folder, os.path.join(self.package_folder, "lib"), False)
-        copy(self, "*.dylib", self.build_folder, os.path.join(self.package_folder, "lib"), False)
-        copy(self, "*.dll", self.build_folder, os.path.join(self.package_folder, "bin"), False)
+        copy(
+            self, "*.h", self.build_folder, os.path.join(self.package_folder, "include")
+        )
+        copy(
+            self,
+            "*.lib",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
+            "*.a",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
+            "*.so",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
+            "*.dylib",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
+            "*.dll",
+            self.build_folder,
+            os.path.join(self.package_folder, "bin"),
+            False,
+        )
 
     def package_info(self):
         self.cpp_info.libs = collect_libs(self)

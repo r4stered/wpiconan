@@ -1,11 +1,13 @@
 from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout
 from conan.tools.build import can_run
+from conan.tools.files import copy
 import os
+from conan.errors import ConanInvalidConfiguration
+
 
 class WpiCommon:
     def generate_download_urls(self, library_name, version, os, arch, shared, debug):
-
         _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
         _arch = arch.lower().replace("_", "-")
         _debug = debug.lower()
@@ -25,7 +27,36 @@ class WpiCommon:
         lib_url = base_url + f"{_os}{_arch}{static_str}{debug_str}.zip"
 
         return (header_url, lib_url)
-    
+
+    def get_toolchain_url(self, target_arch, build_os, build_arch, version):
+        # TODO: delicate version name
+        target_arch_str = ""
+        version_str = "10.2.0"
+        if str(target_arch) == "armv8":
+            target_arch_str = "arm64-bullseye-2023"
+        if str(target_arch) == "armv7hf":
+            target_arch_str = "armhf-bullseye-2023"
+        if str(target_arch) == "armv6":
+            target_arch_str = "armhf-raspi-bullseye-2023"
+        if str(target_arch) == "armv7":
+            target_arch_str = "cortexa9_vfpv3-roborio-academic-2023"
+            version_str = "12.1.0"
+
+        build_os_str = ""
+        ext_str = "tgz"
+        if str(build_os) == "Windows":
+            build_os_str = "w64-mingw32"
+            ext_str = "zip"
+        if str(build_os) == "Macos":
+            build_os_str = "apple-darwin"
+        if str(build_os) == "Linux":
+            build_os_str = "linux-gnu"
+
+        return (
+            f"https://github.com/wpilibsuite/opensdk/releases/download/{version}/{target_arch_str}-{build_arch}-{build_os_str}-Toolchain-{version_str}.{ext_str}",
+        )
+
+
 class testPackageBase:
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps"
@@ -49,6 +80,78 @@ class testPackageBase:
         if can_run(self):
             cmd = os.path.join(self.cpp.build.bindir, "test_exec")
             self.run(cmd, env="conanrun")
+
+
+class toolchainPackageBase:
+    package_type = "application"
+    options = {"target": [None, "ANY"]}
+    default_options = {"target": None}
+    # Binary configuration
+    settings = "os", "build_type", "arch"
+    python_requires = "wpicommon/0.1"
+    python_requires_extend = "wpicommon.WpiCommon"
+    temp_package_folder = None
+
+    def validate(self):
+        settings_target = getattr(self, "settings_target", None)
+        if settings_target is None:
+            print("Running as host")
+            # It is running in 'host', so Conan is compiling this package
+            if not self.options.target:
+                raise ConanInvalidConfiguration(
+                    "A value for option 'target' has to be provided"
+                )
+        else:
+            print("Running as compiler")
+            if self.options.target:
+                raise ConanInvalidConfiguration(
+                    "Value for the option 'target' will be computed from settings_target"
+                )
+            print("self.settings_target.arch: " + str(self.settings_target.arch))
+            self.options.target = self.settings_target.arch
+            if not (
+                str(self.options.target) == "armv8"
+                or str(self.options.target) == "armv7hf"
+                or str(self.options.target) == "armv6"
+                or str(self.options.target) == "armv7"
+            ):
+                raise ConanInvalidConfiguration(
+                    "Target arch not supported: " + str(self.options.target)
+                )
+
+    def package(self):
+        copy(self, "*", self.build_folder, self.package_folder)
+
+    def package_info(self):
+        if self.temp_package_folder is not None:
+            with open(os.path.join(self.package_folder, "conan_toolchain.cmake")) as f:
+                s = f.read()
+                if self.temp_package_folder not in s:
+                    print(
+                        '"{self.temp_package_folder}" not found in conan_toolchain.cmake.'.format(
+                            **locals()
+                        )
+                    )
+                    return
+
+            # Safely write the changed content, if found in the file
+            with open(
+                os.path.join(self.package_folder, "conan_toolchain.cmake"), "w"
+            ) as f:
+                print(
+                    'Changing "{self.temp_package_folder}" to "{self.package_folder}" in conan_toolchain.cmake'.format(
+                        **locals()
+                    )
+                )
+                s = s.replace(
+                    self.temp_package_folder,
+                    str(self.package_folder).replace(os.sep, "/"),
+                )
+                f.write(s)
+
+        f = os.path.join(self.package_folder, "conan_toolchain.cmake")
+        self.conf_info.define("tools.cmake.cmaketoolchain:user_toolchain", [f])
+
 
 class WpiCommonPkg(ConanFile):
     name = "wpicommon"

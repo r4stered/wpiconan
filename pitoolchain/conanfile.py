@@ -4,8 +4,8 @@ from conan.tools.files import get
 from conan.tools.cmake import CMakeToolchain
 
 
-class riotoolchainRecipe(ConanFile):
-    name = "riotoolchain"
+class pitoolchainRecipe(ConanFile):
+    name = "pitoolchain"
     version = "v2023-8"
     python_requires_extend = "wpicommon.toolchainPackageBase"
 
