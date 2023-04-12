@@ -7,6 +7,7 @@ from conan.tools.cmake import CMakeToolchain
 class riotoolchainRecipe(ConanFile):
     name = "riotoolchain"
     version = "v2023-8"
+    python_requires = "wpicommon/0.1"
     python_requires_extend = "wpicommon.toolchainPackageBase"
 
     def generate(self):

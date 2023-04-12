@@ -7,7 +7,7 @@ compiler.libcxx=libstdc++11
 os=Linux
 
 [options]
-target = armv7
+target=armv7
 
 [tool_requires]
 riotoolchain/v2023-8

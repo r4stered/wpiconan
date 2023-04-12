@@ -18,6 +18,9 @@ class WpiCommon:
         if _os == "linux" and arch == "armv7":
             _arch = "athena"
 
+        if _os == "linux" and arch == "armv6":
+            _arch = "arm32"
+
         base_url = f"https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/{library_name}/{library_name}-cpp/{version}/{library_name}-cpp-{version}-"
         header_url = base_url + "headers.zip"
 
