@@ -49,12 +49,12 @@ jobs:
 
             - name: Make Wpiutil package
               working-directory: ./wpiutil
-              run: ${{CONAN_RUN_CMD}}
+              run: $CONAN_RUN_CMD
             
             - name: Make Wpinet package
               working-directory: ./wpinet
-              run: ${{CONAN_RUN_CMD}}
+              run: $CONAN_RUN_CMD
             
             - name: Make Cscore package
               working-directory: ./cscore
-              run: ${{CONAN_RUN_CMD}}
+              run: $CONAN_RUN_CMD
