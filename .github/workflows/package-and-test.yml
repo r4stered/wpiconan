@@ -49,7 +49,10 @@ jobs:
             - name: Make Wpiutil package
               working-directory: ./wpiutil
               run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}
-            
+                               
+            - name: List packages
+              run: conan list wpiutil/2023.4.3:*
+
             - name: Make Wpinet package
               working-directory: ./wpinet
               run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}
