@@ -10,3 +10,4 @@ class cscoreRecipe(ConanFile):
     def requirements(self):
         self.requires("wpiutil/2023.4.3", headers=True, libs=True, transitive_headers=True, transitive_libs=True)
         self.requires("wpinet/2023.4.3", headers=True, libs=True, transitive_headers=True, transitive_libs=True)
+        self.requires("opencv/4.6.0-4", headers=True, libs=True, transitive_headers=True, transitive_libs=True)

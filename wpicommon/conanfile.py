@@ -20,7 +20,13 @@ class WpiCommon:
     options = {"shared": [True, False], "target": [None, "ANY"]}
     default_options = {"shared": True}
 
-    def generate_download_urls(self, library_name, version, os, arch, shared, debug):
+    def generate_opencv_url(self, version, os, arch, shared, debug):
+        return self.generate_download_urls("https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/thirdparty/frc2023", "opencv", version, os, arch, shared, debug)
+
+    def generate_wpi_url(self, library_name, version, os, arch, shared, debug):
+        return self.generate_download_urls("https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first", library_name, version, os, arch, shared, debug)
+
+    def generate_download_urls(self, base_url, library_name, version, os, arch, shared, debug):
         _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
         _arch = arch.lower().replace("_", "-")
         _debug = debug.lower()
@@ -34,7 +40,7 @@ class WpiCommon:
         if _os == "linux" and arch == "armv6":
             _arch = "arm32"
 
-        base_url = f"https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/{library_name}/{library_name}-cpp/{version}/{library_name}-cpp-{version}-"
+        base_url = f"{base_url}/{library_name}/{library_name}-cpp/{version}/{library_name}-cpp-{version}-"
         header_url = base_url + "headers.zip"
 
         static_str = "" if shared else "static"
@@ -45,7 +51,7 @@ class WpiCommon:
         return (header_url, lib_url)
 
     def build(self):
-        header_url, lib_url = self.generate_download_urls(
+        header_url, lib_url = self.generate_wpi_url(
             self.name,
             self.version,
             str(self.settings.os),
@@ -62,6 +68,9 @@ class WpiCommon:
         )
         copy(
             self, "*.inc", self.build_folder, os.path.join(self.package_folder, "include")
+        )
+        copy(
+            self, "*.hpp", self.build_folder, os.path.join(self.package_folder, "include")
         )
         copy(
             self,
