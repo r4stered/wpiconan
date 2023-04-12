@@ -11,6 +11,10 @@ jobs:
                 os: [ubuntu-latest, windows-latest, macos-latest]
                 config: [dbg_shared, dbg_static, rel_shared, rel_static]
                 rio_crossbuild: [true, false]
+                pi_crossbuild: [true, false]
+                exclude:
+                  - rio_crossbuild: true
+                    pi_crossbuild: true
         steps:
             - name: Checkout 
               uses: actions/checkout@v3
@@ -27,6 +31,12 @@ jobs:
               run: |
                 conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} --profile:host ../.github/ci_conan_profiles/rio_toolchain
 
+            - name: Pi toolchain
+              if: ${{ matrix.pi_crossbuild }}
+              working-directory: ./pitoolchain
+              run: |
+                conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} --profile:host ../.github/ci_conan_profiles/pi_toolchain
+
             - name: Make Wpicommon package
               working-directory: ./wpicommon
               run: |
@@ -35,7 +45,10 @@ jobs:
             - name: Make Wpiutil package
               working-directory: ./wpiutil
               env:
-                PROFILE_NAME: ${{ matrix.rio_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/rio_toolchain' || '' }}
+                if: ${{ matrix.rio_crossbuild }}
+                  PROFILE_NAME: ${{ matrix.rio_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/rio_toolchain' || '' }}
+                if: ${{ matrix.pi_crossbuild }}
+                  PROFILE_NAME: ${{ matrix.pi_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/pi_toolchain' || '' }}
               run: |
                 conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} --profile:host default --profile:host ../.github/ci_conan_profiles/${{ matrix.config }} ${{ env.PROFILE_NAME }} 
 

@@ -24,7 +24,7 @@ class pitoolchainRecipe(ConanFile):
             ext_str = ".exe"
 
         bin_folder = os.path.join(
-            self.package_folder, "roborio-academic", "bin"
+            self.package_folder, "raspi-bullseye", "bin"
         ).replace(os.sep, "/")
 
         tc = CMakeToolchain(self)
@@ -33,8 +33,8 @@ class pitoolchainRecipe(ConanFile):
         tc.variables["CMAKE_SYSTEM_PROCESSOR"] = "arm"
         tc.variables["CMAKE_SYSROOT"] = os.path.join(
             self.package_folder,
-            "roborio-academic",
-            "arm-nilrt-linux-gnueabi",
+            "raspi-bullseye",
+            "arm-linux-gnueabihf",
             "sysroot",
         ).replace(os.sep, "/")
         if str(self.settings_build.os) != "Windows":
@@ -42,25 +42,25 @@ class pitoolchainRecipe(ConanFile):
             tc.variables["CMAKE_CXX_FLAGS"] = "-Wno-psabi"
             tc.variables["CMAKE_Fortran_FLAGS"] = "-Wno-psabi"
         tc.variables["CMAKE_C_COMPILER"] = os.path.join(
-            bin_folder, "arm-frc2023-linux-gnueabi-gcc" + ext_str
+            bin_folder, "armv6-bullseye-linux-gnueabihf-gcc" + ext_str
         ).replace(os.sep, "/")
         tc.variables["CMAKE_CXX_COMPILER"] = os.path.join(
-            bin_folder, "arm-frc2023-linux-gnueabi-g++" + ext_str
+            bin_folder, "armv6-bullseye-linux-gnueabihf-g++" + ext_str
         ).replace(os.sep, "/")
         tc.variables["CMAKE_Fortran_COMPILER"] = os.path.join(
-            bin_folder, "arm-frc2023-linux-gnueabi-gfortran" + ext_str
+            bin_folder, "armv6-bullseye-linux-gnueabihf-gfortran" + ext_str
         ).replace(os.sep, "/")
         tc.variables["CMAKE_AR"] = os.path.join(
-            bin_folder, "arm-frc2023-linux-gnueabi-ar" + ext_str
+            bin_folder, "armv6-bullseye-linux-gnueabihf-ar" + ext_str
         ).replace(os.sep, "/")
         tc.variables["CMAKE_AS"] = os.path.join(
-            bin_folder, "arm-frc2023-linux-gnueabi-as" + ext_str
+            bin_folder, "armv6-bullseye-linux-gnueabihf-as" + ext_str
         ).replace(os.sep, "/")
         tc.variables["CMAKE_NM"] = os.path.join(
-            bin_folder, "arm-frc2023-linux-gnueabi-nm" + ext_str
+            bin_folder, "armv6-bullseye-linux-gnueabihf-nm" + ext_str
         ).replace(os.sep, "/")
         tc.variables["CMAKE_LINKER"] = os.path.join(
-            bin_folder, "arm-frc2023-linux-gnueabi-ld" + ext_str
+            bin_folder, "armv6-bullseye-linux-gnueabihf-ld" + ext_str
         ).replace(os.sep, "/")
         tc.variables["CMAKE_FIND_ROOT_PATH_MODE_PROGRAM"] = "NEVER"
         tc.variables["CMAKE_FIND_ROOT_PATH_MODE_LIBRARY"] = "ONLY"

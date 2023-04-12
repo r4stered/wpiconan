@@ -1,0 +1,13 @@
+[settings]
+arch=armv6
+compiler=gcc
+compiler.cppstd=20
+compiler.version=12.1
+compiler.libcxx=libstdc++11
+os=Linux
+
+[options]
+target = armv6
+
+[tool_requires]
+pitoolchain/v2023-8
