@@ -7,11 +7,12 @@ from conan.tools.cmake import CMakeToolchain
 class pitoolchainRecipe(ConanFile):
     name = "pitoolchain"
     version = "v2023-8"
+    python_requires = "wpicommon/0.1"
     python_requires_extend = "wpicommon.toolchainPackageBase"
 
     def generate(self):
         self.temp_package_folder = str(self.package_folder).replace(os.sep, "/")
-        toolchain_url = self.get_toolchain_url(
+        toolchain_url = super().get_toolchain_url(
             self.options.target,
             self.settings_build.os,
             self.settings_build.arch,

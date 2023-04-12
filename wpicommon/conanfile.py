@@ -28,34 +28,6 @@ class WpiCommon:
 
         return (header_url, lib_url)
 
-    def get_toolchain_url(self, target_arch, build_os, build_arch, version):
-        # TODO: delicate version name
-        target_arch_str = ""
-        version_str = "10.2.0"
-        if str(target_arch) == "armv8":
-            target_arch_str = "arm64-bullseye-2023"
-        if str(target_arch) == "armv7hf":
-            target_arch_str = "armhf-bullseye-2023"
-        if str(target_arch) == "armv6":
-            target_arch_str = "armhf-raspi-bullseye-2023"
-        if str(target_arch) == "armv7":
-            target_arch_str = "cortexa9_vfpv3-roborio-academic-2023"
-            version_str = "12.1.0"
-
-        build_os_str = ""
-        ext_str = "tgz"
-        if str(build_os) == "Windows":
-            build_os_str = "w64-mingw32"
-            ext_str = "zip"
-        if str(build_os) == "Macos":
-            build_os_str = "apple-darwin"
-        if str(build_os) == "Linux":
-            build_os_str = "linux-gnu"
-
-        return (
-            f"https://github.com/wpilibsuite/opensdk/releases/download/{version}/{target_arch_str}-{build_arch}-{build_os_str}-Toolchain-{version_str}.{ext_str}",
-        )
-
 
 class testPackageBase:
     settings = "os", "compiler", "build_type", "arch"
@@ -88,9 +60,35 @@ class toolchainPackageBase:
     default_options = {"target": None}
     # Binary configuration
     settings = "os", "build_type", "arch"
-    python_requires = "wpicommon/0.1"
-    python_requires_extend = "wpicommon.WpiCommon"
     temp_package_folder = None
+
+    def get_toolchain_url(self, target_arch, build_os, build_arch, version):
+        # TODO: delicate version name
+        target_arch_str = ""
+        version_str = "10.2.0"
+        if str(target_arch) == "armv8":
+            target_arch_str = "arm64-bullseye-2023"
+        if str(target_arch) == "armv7hf":
+            target_arch_str = "armhf-bullseye-2023"
+        if str(target_arch) == "armv6":
+            target_arch_str = "armhf-raspi-bullseye-2023"
+        if str(target_arch) == "armv7":
+            target_arch_str = "cortexa9_vfpv3-roborio-academic-2023"
+            version_str = "12.1.0"
+
+        build_os_str = ""
+        ext_str = "tgz"
+        if str(build_os) == "Windows":
+            build_os_str = "w64-mingw32"
+            ext_str = "zip"
+        if str(build_os) == "Macos":
+            build_os_str = "apple-darwin"
+        if str(build_os) == "Linux":
+            build_os_str = "linux-gnu"
+
+        return (
+            f"https://github.com/wpilibsuite/opensdk/releases/download/{version}/{target_arch_str}-{build_arch}-{build_os_str}-Toolchain-{version_str}.{ext_str}",
+        )
 
     def validate(self):
         settings_target = getattr(self, "settings_target", None)

@@ -11,7 +11,7 @@ class riotoolchainRecipe(ConanFile):
 
     def generate(self):
         self.temp_package_folder = str(self.package_folder).replace(os.sep, "/")
-        toolchain_url = self.get_toolchain_url(
+        toolchain_url = super().get_toolchain_url(
             self.options.target,
             self.settings_build.os,
             self.settings_build.arch,
