@@ -12,13 +12,12 @@ class WpiCommon:
     license = "https://github.com/wpilibsuite/allwpilib/blob/main/LICENSE.md"
     author = "Drew Williams williams.r.drew@gmail.com"
     url = "https://github.com/r4stered/wpiconan"
-    description = "Repackage of wpiutil library; a part of allwpilib. See https://github.com/r4stered/allwpilib for source."
+    description = "Repackage of allwpilib. See https://github.com/r4stered/allwpilib for source."
     topics = ("robotics", "frc", "utility")
 
     # Binary configuration
     settings = "os", "build_type", "arch"
     options = {"shared": [True, False], "target": [None, "ANY"]}
-    default_options = {"shared": True}
 
     def generate_opencv_url(self, version, os, arch, shared, debug):
         return self.generate_download_urls("https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/thirdparty/frc2023", "opencv", version, os, arch, shared, debug)
