@@ -45,8 +45,8 @@ jobs:
             - name: Make Wpiutil package
               working-directory: ./wpiutil
               env:
-                PROFILE_NAME: > 
-                ${{ 
+                PROFILE_NAME: >-
+                ${{
                   (matrix.rio_target == true && matrix.pi_target == false) && '--profile:host ../.github/ci_conan_profiles/rio_toolchain' ||
                   (matrix.rio_target == false && matrix.pi_target == true) && '--profile:host ../.github/ci_conan_profiles/pi_toolchain' || ''
                 }}
