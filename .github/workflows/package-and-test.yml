@@ -45,10 +45,7 @@ jobs:
             - name: Make Wpiutil package
               working-directory: ./wpiutil
               env:
-                if: ${{ matrix.rio_crossbuild }}
-                  PROFILE_NAME: ${{ matrix.rio_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/rio_toolchain' || '' }}
-                if: ${{ matrix.pi_crossbuild }}
-                  PROFILE_NAME: ${{ matrix.pi_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/pi_toolchain' || '' }}
+                  PROFILE_NAME: ${{ (matrix.rio_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/rio_toolchain') || (matrix.pi_crossbuild == true && '--profile:host ../.github/ci_conan_profiles/pi_toolchain') || '' }}
               run: |
                 conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{ matrix.config }} --profile:host default --profile:host ../.github/ci_conan_profiles/${{ matrix.config }} ${{ env.PROFILE_NAME }} 
 
