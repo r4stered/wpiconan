@@ -18,7 +18,7 @@ jobs:
 
         env:
           PROFILE_NAME: ${{ (matrix.rio_target == true && matrix.pi_target == false) && '--profile:host ../.github/ci_conan_profiles/rio_toolchain' || (matrix.rio_target == false && matrix.pi_target == true) && '--profile:host ../.github/ci_conan_profiles/pi_toolchain' || '' }}
-          CONAN_RUN_CMD: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} $PROFILE_NAME
+          CONAN_RUN_CMD: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}
 
         steps:
             - name: Checkout 
