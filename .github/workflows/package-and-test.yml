@@ -53,7 +53,11 @@ jobs:
             - name: Make Wpinet package
               working-directory: ./wpinet
               run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}
-            
+
+            - name: Make Opencv package
+              working-directory: ./opencv
+              run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}            
+
             - name: Make Cscore package
               working-directory: ./cscore
               run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}
