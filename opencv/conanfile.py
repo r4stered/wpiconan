@@ -21,7 +21,6 @@ class opencvRecipe(ConanFile):
         get(self, header_url)
         get(self, lib_url)
 
-    def package(self):
         os.chdir(self.build_folder)
         for file in glob.glob("**/*.4.6", recursive=True):
             print("Old file name:")
@@ -39,7 +38,6 @@ class opencvRecipe(ConanFile):
             print("New file name")
             print(new_file_name)
             rename(self, file, new_file_name)
-        super().package()
 
     def package_info(self):
         self.cpp_info.libs = collect_libs(self)
