@@ -24,11 +24,20 @@ class opencvRecipe(ConanFile):
     def package(self):
         os.chdir(self.build_folder)
         for file in glob.glob("*.4.6", recursive=True):
+            print("Old file name:")
+            print(file)
+            new_file_name = file.replace(".4.6", "")
+            print("New file name")
+            print(new_file_name)
             new_file_name = file.replace(".4.6", "")
             rename(self, file, new_file_name)
 
         for file in glob.glob("*.4.6.debug", recursive=True):
+            print("Old file name:")
+            print(file)
             new_file_name = file.replace(".4.6.debug", "")
+            print("New file name")
+            print(new_file_name)
             rename(self, file, new_file_name)
         super().package()
 
