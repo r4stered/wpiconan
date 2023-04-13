@@ -8,4 +8,4 @@ class wpinetRecipe(ConanFile):
     python_requires_extend = "wpicommon.WpiCommon"
 
     def requirements(self):
-        self.requires("wpiutil/2023.4.3")
+        self.requires("wpiutil/2023.4.3", transitive_headers=True)
