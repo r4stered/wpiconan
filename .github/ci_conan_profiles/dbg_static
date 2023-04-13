@@ -3,4 +3,4 @@ build_type=Debug
 compiler.cppstd=20
 
 [options]
-shared=False
+*:shared=False
