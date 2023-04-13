@@ -22,7 +22,7 @@ class opencvRecipe(ConanFile):
         get(self, lib_url)
 
     def package(self):
-        os.chdir(self.build_folder, "lib")
+        os.chdir(self.build_folder)
         for file in glob.glob("*.4.6", recursive=True):
             new_file_name = file.replace(".4.6", "")
             rename(self, file, new_file_name)
