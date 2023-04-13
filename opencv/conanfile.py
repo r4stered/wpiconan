@@ -21,14 +21,16 @@ class opencvRecipe(ConanFile):
         get(self, header_url)
         get(self, lib_url)
 
-    def package_info(self):
-        os.chdir(os.path.join(self.package_folder, "lib"))
-        for file in glob.glob("*.4.6"):
+    def package(self):
+        os.chdir(self.build_folder, "lib")
+        for file in glob.glob("*.4.6", recursive=True):
             new_file_name = file.replace(".4.6", "")
             rename(self, file, new_file_name)
 
-        for file in glob.glob("*.4.6.debug"):
+        for file in glob.glob("*.4.6.debug", recursive=True):
             new_file_name = file.replace(".4.6.debug", "")
             rename(self, file, new_file_name)
+        super.package(self)
 
+    def package_info(self):
         self.cpp_info.libs = collect_libs(self)
