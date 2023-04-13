@@ -30,7 +30,7 @@ class opencvRecipe(ConanFile):
         for file in glob.glob("*.4.6.debug", recursive=True):
             new_file_name = file.replace(".4.6.debug", "")
             rename(self, file, new_file_name)
-        super.package(self)
+        super().package(self)
 
     def package_info(self):
         self.cpp_info.libs = collect_libs(self)
