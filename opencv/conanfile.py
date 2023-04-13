@@ -36,7 +36,7 @@ class opencvRecipe(ConanFile):
         return os.path.join(self.package_folder, "lib", final_name)
 
     def package_info(self):
-        lib_names = [               
+        lib_names = [
             "opencv_arcuo",
             "opencv_calib3d",
             "opencv_core",
@@ -54,7 +54,7 @@ class opencvRecipe(ConanFile):
             "opencv_videoio"
         ]
 
-        lib_names = list(map(self.make_file_name(), lib_names))
+        lib_names = [self.make_file_name(lib) for lib in lib_names]
 
         if str(self.settings.os) == "Linux":
             self.cpp_info.libs = lib_names
