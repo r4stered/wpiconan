@@ -1,5 +1,7 @@
 from conan import ConanFile
-from conan.tools.files import get
+from conan.tools.files import get, rename, collect_libs
+import glob
+import os
 
 
 class opencvRecipe(ConanFile):
@@ -18,3 +20,15 @@ class opencvRecipe(ConanFile):
         )
         get(self, header_url)
         get(self, lib_url)
+
+    def package_info(self):
+        os.chdir(os.path.join(self.package_folder, "lib"))
+        for file in glob.glob("*.4.6"):
+            new_file_name = file.replace(".4.6", "")
+            rename(self, file, new_file_name)
+
+        for file in glob.glob("*.4.6.debug"):
+            new_file_name = file.replace(".4.6.debug", "")
+            rename(self, file, new_file_name)
+
+        self.cpp_info.libs = collect_libs(self)
