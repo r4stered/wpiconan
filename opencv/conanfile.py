@@ -21,23 +21,42 @@ class opencvRecipe(ConanFile):
         get(self, header_url)
         get(self, lib_url)
 
-        os.chdir(self.build_folder)
-        for file in glob.glob("**/*.4.6", recursive=True):
-            print("Old file name:")
-            print(file)
-            new_file_name = file.replace(".4.6", "")
-            print("New file name")
-            print(new_file_name)
-            new_file_name = file.replace(".4.6", "")
-            rename(self, file, new_file_name)
+    def make_file_name(self, name):
+        version = ".4.6"
+        fileExt = ""
+        if self.options.shared:
+            fileExt = ".so"
+        else:
+            fileExt = ".a"
 
-        for file in glob.glob("**/*.4.6.debug", recursive=True):
-            print("Old file name:")
-            print(file)
-            new_file_name = file.replace(".4.6.debug", "")
-            print("New file name")
-            print(new_file_name)
-            rename(self, file, new_file_name)
+        final_name = name + fileExt + version
+        if self.settings.build_type == "Debug":
+            final_name = final_name + ".debug"
+
+        return os.path.join(self.package_folder, "lib", final_name)
 
     def package_info(self):
-        self.cpp_info.libs = collect_libs(self)
+        lib_names = [               
+            "opencv_arcuo",
+            "opencv_calib3d",
+            "opencv_core",
+            "opencv_features2d",
+            "opencv_flann",
+            "opencv_gapid",
+            "opencv_highgui",
+            "opencv_imgcodecs",
+            "opencv_imgproc",
+            "opencv_ml",
+            "opencv_objdetect",
+            "opencv_photo",
+            "opencv_stiching",
+            "opencv_video",
+            "opencv_videoio"
+        ]
+
+        lib_names = list(map(self.make_file_name(), lib_names))
+
+        if str(self.settings.os) == "Linux":
+            self.cpp_info.libs = lib_names
+        else:
+            self.cpp_info.libs = collect_libs(self)

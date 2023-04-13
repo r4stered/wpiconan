@@ -80,6 +80,20 @@ class WpiCommon:
         )
         copy(
             self,
+            "*.debug",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
+            "*.4.6",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
             "*.a",
             self.build_folder,
             os.path.join(self.package_folder, "lib"),
