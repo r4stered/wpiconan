@@ -32,4 +32,8 @@ class opencvRecipe(ConanFile):
             self.cpp_info.libs = libs
         else:
             self.cpp_info.libs = collect_libs(self)
+
+        if str(self.settings.os) == "Linux":
+            self.cpp_info.system_libs = ["pthread", "dl"]
+
         print(self.cpp_info.libs)
