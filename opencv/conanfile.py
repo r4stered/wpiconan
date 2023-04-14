@@ -20,35 +20,13 @@ class opencvRecipe(ConanFile):
         )
         get(self, header_url)
         get(self, lib_url)
+        for entry in os.scandir(os.path.join(self.build_folder, str(self.settings.os).lower(), str(self.settings.arch).replace("_", "-"), "shared" if self.options.shared else "static")):
+            print(entry.path)
+            final_name = str(entry.path).replace(".4.6", "").replace(".debug", "")
+            print(final_name)
+            if not str(entry.path).endswith(".so"):
+                rename(self, entry.path, final_name)
 
     def package_info(self):
-        lib_names = [
-            "opencv_arcuo",
-            "opencv_calib3d",
-            "opencv_core",
-            "opencv_features2d",
-            "opencv_flann",
-            "opencv_gapid",
-            "opencv_highgui",
-            "opencv_imgcodecs",
-            "opencv_imgproc",
-            "opencv_ml",
-            "opencv_objdetect",
-            "opencv_photo",
-            "opencv_stiching",
-            "opencv_video",
-            "opencv_videoio"
-        ]
-
-        #lib_names = [self.make_file_name(lib) for lib in lib_names]
-
-        print(lib_names)
-        print(str(self.settings.os))
-        print(self.options.shared)
-
-        if str(self.settings.os) == "Linux" and self.options.shared:
-            print("Using custom list")
-            self.cpp_info.libs = lib_names
-        else:
-            print("Using collect libs")
-            self.cpp_info.libs = collect_libs(self)
+        self.cpp_info.libs = collect_libs(self)
+        print(self.cpp_info.libs)
