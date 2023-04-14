@@ -15,4 +15,4 @@ class ntcoreRecipe(ConanFile):
     def package_info(self):
         self.cpp_info.libs = collect_libs(self)
         if str(self.settings.os) == "Linux":
-            self.cpp_info.system_libs = ["pthread"]
+            self.cpp_info.system_libs = ["pthread", "dl"]
