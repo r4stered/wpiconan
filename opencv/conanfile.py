@@ -40,7 +40,7 @@ class opencvRecipe(ConanFile):
             "opencv_videoio"
         ]
 
-        lib_names = [self.make_file_name(lib) for lib in lib_names]
+        #lib_names = [self.make_file_name(lib) for lib in lib_names]
 
         print(lib_names)
         print(str(self.settings.os))
