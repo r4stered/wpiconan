@@ -57,8 +57,10 @@ class opencvRecipe(ConanFile):
         lib_names = [self.make_file_name(lib) for lib in lib_names]
 
         print(lib_names)
+        print(str(self.settings.os))
+        print(self.options.shared)
 
-        if str(self.settings.os) == "Linux" and self.options.shared is True:
+        if str(self.settings.os) == "Linux" and self.options.shared:
             print("Using custom list")
             self.cpp_info.libs = lib_names
         else:
