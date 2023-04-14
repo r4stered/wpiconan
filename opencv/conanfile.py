@@ -20,13 +20,15 @@ class opencvRecipe(ConanFile):
         )
         get(self, header_url)
         get(self, lib_url)
-        for entry in os.scandir(os.path.join(self.build_folder, str(self.settings.os).lower(), str(self.settings.arch).replace("_", "-"), "shared" if self.options.shared else "static")):
-            print(entry.path)
-            final_name = str(entry.path).replace(".4.6", "").replace(".debug", "")
-            print(final_name)
-            if not str(entry.path).endswith(".so"):
-                rename(self, entry.path, final_name)
 
     def package_info(self):
-        self.cpp_info.libs = collect_libs(self)
+
+        if str(self.settings.os) == "Linux" and self.options.shared:
+            libs = []
+            for entry in os.scandir(os.path.join(self.package_folder, "lib")):
+                print(entry.name)
+                libs.append(entry.name)
+            self.cpp_info.libs = libs
+        else:
+            self.cpp_info.libs = collect_libs(self)
         print(self.cpp_info.libs)
