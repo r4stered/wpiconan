@@ -33,7 +33,7 @@ class opencvRecipe(ConanFile):
         if self.settings.build_type == "Debug":
             final_name = final_name + ".debug"
 
-        return os.path.join(self.package_folder, "lib", final_name)
+        return final_name
 
     def package_info(self):
         lib_names = [
