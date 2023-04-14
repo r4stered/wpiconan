@@ -21,20 +21,6 @@ class opencvRecipe(ConanFile):
         get(self, header_url)
         get(self, lib_url)
 
-    def make_file_name(self, name):
-        version = ".4.6"
-        fileExt = ""
-        if self.options.shared:
-            fileExt = ".so"
-        else:
-            fileExt = ".a"
-
-        final_name = name + fileExt + version
-        if self.settings.build_type == "Debug":
-            final_name = final_name + ".debug"
-
-        return final_name
-
     def package_info(self):
         lib_names = [
             "opencv_arcuo",
