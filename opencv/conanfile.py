@@ -27,7 +27,8 @@ class opencvRecipe(ConanFile):
             libs = []
             for entry in os.scandir(os.path.join(self.package_folder, "lib")):
                 print(entry.name)
-                libs.append(entry.name)
+                if not str(entry.name).endswith(".debug"):
+                    libs.append(entry.name)
             self.cpp_info.libs = libs
         else:
             self.cpp_info.libs = collect_libs(self)

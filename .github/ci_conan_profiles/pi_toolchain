@@ -7,7 +7,7 @@ compiler.libcxx=libstdc++11
 os=Linux
 
 [options]
-target=armv6
+*:target=armv6
 
 [tool_requires]
 pitoolchain/v2023-8
