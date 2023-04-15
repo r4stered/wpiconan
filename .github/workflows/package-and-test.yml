@@ -77,3 +77,7 @@ jobs:
             - name: Make Wpimath package
               working-directory: ./wpimath
               run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}
+
+            - name: Make AprilTag package
+              working-directory: ./apriltag
+              run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}
