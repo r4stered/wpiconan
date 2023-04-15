@@ -2,5 +2,5 @@
 #include <fmt/format.h>
 
 int main(int argc, char** argv) {
-  frc::CameraServer::GetVideo("Test Video");
+  frc::CameraServer::SetSize(1);
 }
