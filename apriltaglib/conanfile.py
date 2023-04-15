@@ -1,5 +1,5 @@
 from conan import ConanFile
-from conan.tools.files import get
+from conan.tools.files import get, collect_libs
 
 
 class apriltaglibRecipe(ConanFile):
@@ -17,3 +17,8 @@ class apriltaglibRecipe(ConanFile):
         )
         get(self, header_url)
         get(self, lib_url)
+
+    def package_info(self):
+        self.cpp_info.libs = collect_libs(self)
+        if str(self.settings.os) == "Linux":
+            self.cpp_info.system_libs = ["pthread"]
