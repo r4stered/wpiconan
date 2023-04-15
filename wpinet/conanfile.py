@@ -14,4 +14,4 @@ class wpinetRecipe(ConanFile):
     def package_info(self):
         self.cpp_info.libs = collect_libs(self)
         if str(self.settings.os) == "Linux":
-            self.cpp_info.system_libs = ["uv", "dl", "rt", "pthread"]
+            self.cpp_info.system_libs = ["dl", "rt", "pthread"]
