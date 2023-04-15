@@ -8,4 +8,5 @@ class apriltagRecipe(ConanFile):
     python_requires_extend = "wpicommon.WpiCommon"
 
     def requirements(self):
+        self.requires("apriltaglib/3.2.0-4", transitive_headers=True, transitive_libs=True)
         self.requires("wpimath/2023.4.3", transitive_headers=True, transitive_libs=True)

@@ -22,6 +22,9 @@ class WpiCommon:
     def generate_opencv_url(self, version, os, arch, shared, debug):
         return self.generate_download_urls("https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/thirdparty/frc2023", "opencv", version, os, arch, shared, debug)
 
+    def generate_apriltag_url(self, version, os, arch, debug):
+        return self.generate_download_urls("https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/thirdparty/frc2023", "apriltaglib", version, os, arch, False, debug)
+
     def generate_wpi_url(self, library_name, version, os, arch, shared, debug):
         return self.generate_download_urls("https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first", library_name, version, os, arch, shared, debug)
 
@@ -39,7 +42,10 @@ class WpiCommon:
         if _os == "linux" and arch == "armv6":
             _arch = "arm32"
 
-        base_url = f"{base_url}/{library_name}/{library_name}-cpp/{version}/{library_name}-cpp-{version}-"
+        if library_name == "apriltaglib":
+            base_url = f"{base_url}/{library_name}/{version}/{library_name}-{version}-"
+        else:
+            base_url = f"{base_url}/{library_name}/{library_name}-cpp/{version}/{library_name}-cpp-{version}-"
         header_url = base_url + "headers.zip"
 
         static_str = "" if shared else "static"
