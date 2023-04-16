@@ -99,3 +99,7 @@ jobs:
             - name: Make Wpilibc package
               working-directory: ./wpilibc
               run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}
+
+            - name: Make WpilibNewCommands package
+              working-directory: ./wpilibnewcommands
+              run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}

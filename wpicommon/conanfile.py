@@ -33,6 +33,9 @@ class WpiCommon:
         _arch = arch.lower().replace("_", "-")
         _debug = debug.lower()
 
+        if library_name == "wpilibnewcommands":
+            library_name = "wpilibNewCommands"
+
         if _os == "osx":
             _arch = "universal"
 
@@ -76,6 +79,9 @@ class WpiCommon:
         )
         copy(
             self, "*.hpp", self.build_folder, os.path.join(self.package_folder, "include")
+        )
+        copy(
+            self, "*.mac", self.build_folder, os.path.join(self.package_folder, "include")
         )
         copy(
             self,
