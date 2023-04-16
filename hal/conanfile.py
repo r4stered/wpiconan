@@ -8,4 +8,6 @@ class halRecipe(ConanFile):
     python_requires_extend = "wpicommon.WpiCommon"
 
     def requirements(self):
+        if self.options.target == "armv7":
+            self.requires("nilibraries/2023.3.0", transitive_headers=True, transitive_libs=True)
         self.requires("wpiutil/2023.4.3", transitive_headers=True, transitive_libs=True)
