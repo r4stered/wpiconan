@@ -19,7 +19,7 @@ class nilibrariesRecipe(ConanFile):
     def generate_nilib_urls(self, library_name, version, debug):
         _debug = debug.lower()
 
-        base_url = f"https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/ni-libraries/{library_name}/{version}/{library_name}-cpp-{version}-"
+        base_url = f"https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/ni-libraries/{library_name}/{version}/{library_name}-{version}-"
         header_url = base_url + "headers.zip"
 
         debug_str = "debug" if _debug == "debug" else ""
