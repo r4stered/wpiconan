@@ -78,6 +78,24 @@ class nilibrariesRecipe(ConanFile):
             os.path.join(self.package_folder, "lib"),
             False,
         )
+        copy(
+            self,
+            "*.23.0.0",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
+            "*.22.5.0",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
 
     def package_info(self):
-        self.cpp_info.libs = collect_libs(self)
+        ni_libs = collect_libs(self)
+        ni_libs.append("libFRC_NetworkCommunication.so.23.0.0")
+        ni_libs.append("libRoboRIO_FRC_ChipObject.so.23.0.0")
+        ni_libs.append("libvisa.so.22.5.0")
+        self.cpp_info.libs = ni_libs
