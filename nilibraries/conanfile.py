@@ -1,5 +1,6 @@
 from conan import ConanFile
 from conan.tools.files import copy, get, collect_libs
+import os
 
 
 class nilibrariesRecipe(ConanFile):
@@ -45,12 +46,11 @@ class nilibrariesRecipe(ConanFile):
         get(self, netcomm_header_url)
         get(self, netcomm_lib_url)
 
-        runtime_header_url, runtime_lib_url = self.generate_nilib_urls(
+        _, runtime_lib_url = self.generate_nilib_urls(
             "runtime",
             self.version,
             str(self.settings.build_type),
         )
-        get(self, runtime_header_url)
         get(self, runtime_lib_url)
 
         visa_header_url, visa_lib_url = self.generate_nilib_urls(
