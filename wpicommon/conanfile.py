@@ -19,6 +19,36 @@ class WpiCommon:
     settings = "os", "build_type", "arch"
     options = {"shared": [True, False], "target": [None, "ANY"]}
 
+    def generate_ctre_url(self, library_name, version, os, arch, debug, sim):
+        _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
+        _arch = arch.lower().replace("_", "-")
+        _debug = debug.lower()
+
+        if _os == "osx":
+            _arch = "universal"
+
+        if _os == "linux" and arch == "armv7":
+            _arch = "athena"
+
+        if _os == "linux" and arch == "armv6":
+            _arch = "arm32"
+
+        if library_name == "tools":
+            ctre_maven_url = "https://maven.ctr-electronics.com/release/com/ctre/phoenixpro"
+        else:
+            ctre_maven_url = "https://maven.ctr-electronics.com/release/com/ctre/phoenix"
+            if sim:
+                ctre_maven_url = "https://maven.ctr-electronics.com/release/com/ctre/phoenix/sim"
+
+        base_url = f"{ctre_maven_url}/{library_name}/{version}/{library_name}-{version}-"
+        header_url = base_url + "headers.zip"
+
+        debug_str = "debug" if _debug == "debug" else ""
+
+        lib_url = base_url + f"{_os}{_arch}{debug_str}.zip"
+
+        return (header_url, lib_url)
+
     def generate_opencv_url(self, version, os, arch, shared, debug):
         return self.generate_download_urls("https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/thirdparty/frc2023", "opencv", version, os, arch, shared, debug)
 
