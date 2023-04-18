@@ -19,7 +19,7 @@ class WpiCommon:
     settings = "os", "build_type", "arch"
     options = {"shared": [True, False], "target": [None, "ANY"]}
 
-    def generate_rev_url(self, version, os, arch, shared, debug):
+    def generate_rev_url(self, library_name, version, os, arch, shared, debug):
         _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
         _arch = arch.lower().replace("_", "-")
         _debug = debug.lower()
@@ -33,9 +33,9 @@ class WpiCommon:
         if _os == "linux" and arch == "armv6":
             _arch = "arm32"
 
-        rev_maven_url = "https://maven.revrobotics.com/com/revrobotics/frc/REVLib-cpp"
+        rev_maven_url = f"https://maven.revrobotics.com/com/revrobotics/frc/REVLib-{library_name}"
 
-        base_url = f"{rev_maven_url}/{version}/REVLib-cpp-{version}-"
+        base_url = f"{rev_maven_url}/{version}/REVLib-{library_name}-{version}-"
         header_url = base_url + "headers.zip"
 
         static_str = "" if shared else "static"

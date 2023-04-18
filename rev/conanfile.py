@@ -12,12 +12,24 @@ class revRecipe(ConanFile):
         self.requires("wpilibc/2023.4.3", transitive_headers=True, transitive_libs=True)
 
     def build(self):
-        tools_header_url, tools_lib_url = super().generate_rev_url(
+        revcpp_header_url, revcpp_lib_url = super().generate_rev_url(
+            "cpp",
             self.version,
             str(self.settings.os),
             str(self.settings.arch),
             str(self.options.shared),
             str(self.settings.build_type)
         )
-        get(self, tools_header_url)
-        get(self, tools_lib_url)
+        get(self, revcpp_header_url)
+        get(self, revcpp_lib_url)
+
+        revdriver_header_url, revdriver_lib_url = super().generate_rev_url(
+            "driver",
+            self.version,
+            str(self.settings.os),
+            str(self.settings.arch),
+            str(self.options.shared),
+            str(self.settings.build_type)
+        )
+        get(self, revdriver_header_url)
+        get(self, revdriver_lib_url)
