@@ -19,6 +19,32 @@ class WpiCommon:
     settings = "os", "build_type", "arch"
     options = {"shared": [True, False], "target": [None, "ANY"]}
 
+    def generate_pathplanner_url(self, version, os, arch, shared, debug):
+        _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
+        _arch = arch.lower().replace("_", "-")
+        _debug = debug.lower()
+
+        if _os == "osx":
+            _arch = "universal"
+
+        if _os == "linux" and arch == "armv7":
+            _arch = "athena"
+
+        if _os == "linux" and arch == "armv6":
+            _arch = "arm32"
+
+        pathplanner_maven_url = "https://github.com/3015RangerRobotics/3015RangerRobotics.github.io/raw/main/pathplannerlib/repo/com/pathplanner/lib/PathplannerLib-cpp"
+
+        base_url = f"{pathplanner_maven_url}/{version}/PathplannerLib-cpp-{version}-"
+        header_url = base_url + "headers.zip"
+
+        static_str = "" if shared else "static"
+        debug_str = "debug" if _debug == "debug" else ""
+
+        lib_url = base_url + f"{_os}{_arch}{debug_str}{static_str}.zip"
+
+        return (header_url, lib_url)
+
     def generate_photonlib_url(self, version, os, arch, shared, debug):
         _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
         _arch = arch.lower().replace("_", "-")
