@@ -19,6 +19,32 @@ class WpiCommon:
     settings = "os", "build_type", "arch"
     options = {"shared": [True, False], "target": [None, "ANY"]}
 
+    def generate_photonlib_url(self, version, os, arch, shared, debug):
+        _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
+        _arch = arch.lower().replace("_", "-")
+        _debug = debug.lower()
+
+        if _os == "osx":
+            _arch = "universal"
+
+        if _os == "linux" and arch == "armv7":
+            _arch = "athena"
+
+        if _os == "linux" and arch == "armv6":
+            _arch = "arm32"
+
+        photonlib_maven_url = "https://maven.photonvision.org/repository/internal/org/photonvision/PhotonLib-cpp"
+
+        base_url = f"{photonlib_maven_url}/v{version}/PhotonLib-cpp-v{version}-"
+        header_url = base_url + "headers.zip"
+
+        static_str = "" if shared else "static"
+        debug_str = "debug" if _debug == "debug" else ""
+
+        lib_url = base_url + f"{_os}{_arch}{debug_str}{static_str}.zip"
+
+        return (header_url, lib_url)
+
     def generate_kauailabs_url(self, version, os, arch, shared, debug):
         _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
         _arch = arch.lower().replace("_", "-")

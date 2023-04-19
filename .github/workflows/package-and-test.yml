@@ -115,3 +115,7 @@ jobs:
             - name: Make Kauailabs package
               working-directory: ./kauailabs
               run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}
+
+            - name: Make Photonlib package
+              working-directory: ./photonlib
+              run: conan create . --profile:build default --profile:build ../.github/ci_conan_profiles/${{matrix.config}} --profile:host default --profile:host ../.github/ci_conan_profiles/${{matrix.config}} ${{env.PROFILE_NAME}}
