@@ -16,7 +16,7 @@ class kauailabsRecipe(ConanFile):
             self.version,
             str(self.settings.os),
             str(self.settings.arch),
-            str(self.options.shared),
+            self.options.shared,
             str(self.settings.build_type)
         )
         get(self, kauailabs_header_url)

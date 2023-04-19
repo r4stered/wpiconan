@@ -41,7 +41,7 @@ class WpiCommon:
         static_str = "" if shared else "static"
         debug_str = "debug" if _debug == "debug" else ""
 
-        lib_url = base_url + f"{_os}{_arch}{debug_str}{static_str}.zip"
+        lib_url = base_url + f"{_os}{_arch}{static_str}{debug_str}.zip"
 
         return (header_url, lib_url)
 
