@@ -9,6 +9,7 @@ class photonlibRecipe(ConanFile):
     python_requires_extend = "wpicommon.WpiCommon"
 
     def requirements(self):
+        self.requires("apriltag/2023.4.3", transitive_headers=True, transitive_libs=True)
         self.requires("wpilibc/2023.4.3", transitive_headers=True, transitive_libs=True)
 
     def build(self):
