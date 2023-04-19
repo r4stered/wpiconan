@@ -19,6 +19,32 @@ class WpiCommon:
     settings = "os", "build_type", "arch"
     options = {"shared": [True, False], "target": [None, "ANY"]}
 
+    def generate_kauailabs_url(self, version, os, arch, shared, debug):
+        _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
+        _arch = arch.lower().replace("_", "-")
+        _debug = debug.lower()
+
+        if _os == "osx":
+            _arch = "universal"
+
+        if _os == "linux" and arch == "armv7":
+            _arch = "athena"
+
+        if _os == "linux" and arch == "armv6":
+            _arch = "arm32"
+
+        kauailabs_maven_url = "https://dev.studica.com/maven/release/2023/com/kauailabs/navx/frc/navx-frc-cpp"
+
+        base_url = f"{kauailabs_maven_url}/{version}/navx-frc-cpp-{version}-"
+        header_url = base_url + "headers.zip"
+
+        static_str = "" if shared else "static"
+        debug_str = "debug" if _debug == "debug" else ""
+
+        lib_url = base_url + f"{_os}{_arch}{debug_str}{static_str}.zip"
+
+        return (header_url, lib_url)
+
     def generate_rev_url(self, library_name, version, os, arch, shared, debug):
         _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
         _arch = arch.lower().replace("_", "-")
@@ -44,7 +70,7 @@ class WpiCommon:
         lib_url = base_url + f"{_os}{_arch}{debug_str}{static_str}.zip"
 
         return (header_url, lib_url)
-    
+
     def generate_ctre_url(self, library_name, version, os, arch, debug, sim):
         _os = {"Windows": "windows", "Linux": "linux", "Macos": "osx"}.get(os)
         _arch = arch.lower().replace("_", "-")
