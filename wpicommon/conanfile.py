@@ -266,6 +266,13 @@ class WpiCommon:
             os.path.join(self.package_folder, "bin"),
             False,
         )
+        copy(
+            self,
+            "*.pdb",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
 
     def package_info(self):
         self.cpp_info.libs = collect_libs(self)
