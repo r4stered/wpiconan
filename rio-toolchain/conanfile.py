@@ -54,9 +54,9 @@ class RioToolchainPackage(ConanFile):
                 "It can only run on Windows x86-64, Mac x86-64, Mac ARMv8, and Linux x86-64"
             )
 
-        if self.settings_target.os != "Linux" and self.settings_target.arch != "armv7":
+        if self.settings_target.os != "Linux" and self.settings_target.arch != "athena":
             raise ConanInvalidConfiguration(
-                f"This toolchain only supports building for Linux-armv7. "
+                f"This toolchain only supports building for Linux-athena. "
                 f"{self.settings_target.os}-{self.settings_target.arch} is not supported."
             )
 
@@ -93,8 +93,7 @@ class RioToolchainPackage(ConanFile):
 
     def package_id(self):
         self.info.settings_target = self.settings_target
-        # We only want the ``arch`` setting
-        self.info.settings_target.rm_safe("os")
+        # We only want the ``arch and os`` setting
         self.info.settings_target.rm_safe("compiler")
         self.info.settings_target.rm_safe("build_type")
 

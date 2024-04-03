@@ -1,8 +1,9 @@
 [settings]
-arch=armv7
-build_type=Debug
+arch=athena
 compiler=gcc
-compiler.cppstd=gnu17
+compiler.cppstd=gnu20
 compiler.libcxx=libstdc++11
 compiler.version=12.1
 os=Linux
+[tool_requires]
+rio-toolchain/v2024-1
