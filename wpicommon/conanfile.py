@@ -1,4 +1,6 @@
 from conan import ConanFile
+from conan.tools.files import copy
+import os
 
 
 class Wpibase:
@@ -37,6 +39,39 @@ class Wpibase:
         header_url = f"{base_url}/{lib_name}-cpp-{version}-headers.zip"
         lib_url = f"{base_url}/{lib_name}-cpp-{version}-{_os}{_arch}{_shared}{_build_type}.zip"
         return (header_url, lib_url)
+
+    def copy_common_files(self):
+        copy(
+            self, "*.h", self.build_folder, os.path.join(self.package_folder, "include")
+        )
+        copy(
+            self,
+            "*.so.debug",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
+            "*.so",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
+            "*.lib",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
+            "*.a",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
 
 
 class WpiReq(ConanFile):

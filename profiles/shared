@@ -1,2 +1,2 @@
 [options]
-shared=True
+*:shared=True

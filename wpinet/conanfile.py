@@ -2,13 +2,16 @@ from conan import ConanFile
 from conan.tools.files import get
 
 
-class WpiutilConan(ConanFile):
-    name = "wpiutil"
+class WpinetConan(ConanFile):
+    name = "wpinet"
     version = "2024.3.2"
     settings = "os", "arch", "build_type"
     options = {"shared": [True, False]}
     python_requires = "wpireq/0.1"
     python_requires_extend = "wpireq.Wpibase"
+
+    def requirements(self):
+        self.requires(f"wpiutil/{self.version}")
 
     def build(self):
         header_url, lib_url = super().get_wpi_urls(
@@ -26,4 +29,4 @@ class WpiutilConan(ConanFile):
         super().copy_common_files()
 
     def package_info(self):
-        self.cpp_info.libs = ["wpiutil"]
+        self.cpp_info.libs = ["wpinet"]

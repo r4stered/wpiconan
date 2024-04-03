@@ -1,7 +1,5 @@
-#include <cstdlib>
-#include <iostream>
-
 #include "wpi/interpolating_map.h"
+#include <fmt/format.h>
 
 int main() {
   wpi::interpolating_map<double, double> table;
@@ -12,7 +10,7 @@ int main() {
   table.insert(312, 550);
   table.insert(326, 650);
 
-  printf("Test: %f\n", table[250]);
+  fmt::print("Test: {}\n", table[250]);
 
   return 0;
 }
