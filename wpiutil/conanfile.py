@@ -12,9 +12,6 @@ class WpiutilConan(ConanFile):
     python_requires = "wpireq/0.1"
     python_requires_extend = "wpireq.Wpibase"
 
-    def requirements(self):
-        self.requires("protobuf/3.21.12")
-
     def build(self):
         print(self.options.shared)
         header_url, lib_url = super().get_wpi_urls(

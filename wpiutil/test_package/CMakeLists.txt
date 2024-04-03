@@ -5,4 +5,4 @@ project(test_package LANGUAGES CXX)
 find_package(wpiutil CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME} test_package.cpp)
-target_link_libraries(${PROJECT_NAME} wpiutil)
+target_link_libraries(${PROJECT_NAME} wpiutil::wpiutil)
