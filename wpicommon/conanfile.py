@@ -46,6 +46,18 @@ class Wpibase:
         )
         copy(
             self,
+            "*.hpp",
+            self.build_folder,
+            os.path.join(self.package_folder, "include"),
+        )
+        copy(
+            self,
+            "*.inc",
+            self.build_folder,
+            os.path.join(self.package_folder, "include"),
+        )
+        copy(
+            self,
             "*.so.debug",
             self.build_folder,
             os.path.join(self.package_folder, "lib"),
