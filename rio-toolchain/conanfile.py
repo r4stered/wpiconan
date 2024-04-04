@@ -111,3 +111,10 @@ class RioToolchainPackage(ConanFile):
                 "fortran": f"{self.triplet_name}-gfortran",
             },
         )
+
+        self.conf_info.define_path(
+            "tools.build:sysroot",
+            os.path.join(
+                self.package_folder, "roborio-academic", self.toolchain_name, "sysroot"
+            ),
+        )
