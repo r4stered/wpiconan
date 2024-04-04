@@ -3,9 +3,9 @@ from conan import ConanFile
 from conan.tools.files import get, copy
 
 
-class LibsshConan(ConanFile):
-    name = "libssh"
-    version = "0.105-1"
+class ApriltaglibConan(ConanFile):
+    name = "apriltaglib"
+    version = "3.3.0-1"
     settings = "os", "arch", "build_type"
     python_requires = "wpireq/0.1"
     python_requires_extend = "wpireq.Wpibase"
@@ -39,4 +39,4 @@ class LibsshConan(ConanFile):
         )
 
     def package_info(self):
-        self.cpp_info.libs = [f"ssh{self.version}"]
+        self.cpp_info.libs = ["apriltaglib"]
