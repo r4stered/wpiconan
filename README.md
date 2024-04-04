@@ -1,8 +1,6 @@
 # TODO
 
 - opencv
-- apriltaglib
-- googletest
 - imgui
 
 - ntcore
