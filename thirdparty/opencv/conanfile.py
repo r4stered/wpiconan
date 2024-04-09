@@ -1,6 +1,6 @@
 import os
 from conan import ConanFile
-from conan.tools.files import get, copy
+from conan.tools.files import get, copy, collect_libs
 
 
 class OpencvConan(ConanFile):
@@ -65,15 +65,26 @@ class OpencvConan(ConanFile):
             os.path.join(self.package_folder, "lib"),
             False,
         )
+        copy(
+            self,
+            "*.dll",
+            self.build_folder,
+            os.path.join(self.package_folder, "bin"),
+            False,
+        )
 
     def package_info(self):
-        if self.options.shared:
-            collected_libs = []
-            for f in os.listdir(os.path.join(self.package_folder, "lib")):
-                if f.endswith(".4.8"):
-                    if f.startswith("lib"):
-                        print(f)
-                        collected_libs.append(f)
-            self.cpp_info.libs = collected_libs
+        if self.settings.os == "Linux":
+            if self.options.shared:
+                collected_libs = []
+                for f in os.listdir(os.path.join(self.package_folder, "lib")):
+                    if f.endswith(".4.8"):
+                        if f.startswith("lib"):
+                            print(f)
+                            collected_libs.append(f)
+                self.cpp_info.libs = collected_libs
+            else:
+                self.cpp_info.libs = [f"opencv{self.version[:5].replace('.', '')}"]
         else:
-            self.cpp_info.libs = [f"opencv{self.version[:5].replace('.', '')}"]
+            self.cpp_info.libs = collect_libs(self)
+        print(self.cpp_info.libs)
