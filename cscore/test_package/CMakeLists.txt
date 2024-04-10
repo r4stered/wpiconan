@@ -7,4 +7,10 @@ find_package(opencv CONFIG REQUIRED)
 find_package(cscore CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME} test_package.cpp)
-target_link_libraries(${PROJECT_NAME} wpiutil::wpiutil wpinet::wpinet opencv::opencv cscore::cscore)
+target_link_libraries(
+    ${PROJECT_NAME}
+    wpiutil::wpiutil
+    wpinet::wpinet
+    opencv::opencv
+    cscore::cscore
+)

@@ -7,4 +7,10 @@ find_package(apriltaglib CONFIG REQUIRED)
 find_package(apriltag CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME} test_package.cpp)
-target_link_libraries(${PROJECT_NAME} wpiutil::wpiutil wpimath::wpimath apriltaglib::apriltaglib apriltag::apriltag)
+target_link_libraries(
+    ${PROJECT_NAME}
+    wpiutil::wpiutil
+    wpimath::wpimath
+    apriltaglib::apriltaglib
+    apriltag::apriltag
+)

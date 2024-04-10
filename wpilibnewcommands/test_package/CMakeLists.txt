@@ -14,4 +14,13 @@ if(MSVC)
 endif()
 
 add_executable(${PROJECT_NAME} test_package.cpp)
-target_link_libraries(${PROJECT_NAME} wpiutil::wpiutil ntcore::ntcore opencv::opencv cscore::cscore cameraserver::cameraserver wpilibc::wpilibc wpilibnewcommands::wpilibnewcommands)
+target_link_libraries(
+    ${PROJECT_NAME}
+    wpiutil::wpiutil
+    ntcore::ntcore
+    opencv::opencv
+    cscore::cscore
+    cameraserver::cameraserver
+    wpilibc::wpilibc
+    wpilibnewcommands::wpilibnewcommands
+)

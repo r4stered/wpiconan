@@ -6,6 +6,11 @@ find_package(wpinet CONFIG REQUIRED)
 find_package(ntcore CONFIG REQUIRED)
 find_package(ntcoreffi CONFIG REQUIRED)
 
-
 add_executable(${PROJECT_NAME} test_package.cpp)
-target_link_libraries(${PROJECT_NAME} wpiutil::wpiutil wpinet::wpinet ntcore::ntcore ntcoreffi::ntcoreffi)
+target_link_libraries(
+    ${PROJECT_NAME}
+    wpiutil::wpiutil
+    wpinet::wpinet
+    ntcore::ntcore
+    ntcoreffi::ntcoreffi
+)

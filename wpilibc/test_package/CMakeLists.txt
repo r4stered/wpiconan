@@ -16,15 +16,16 @@ endif()
 
 add_executable(${PROJECT_NAME} test_package.cpp)
 
-target_link_libraries(${PROJECT_NAME} 
-    wpiutil::wpiutil 
-    wpimath::wpimath 
-    hal::hal 
-    wpinet::wpinet 
-    ntcore::ntcore 
-    opencv::opencv 
-    cscore::cscore 
-    cameraserver::cameraserver 
-    nilibraries::nilibraries 
+target_link_libraries(
+    ${PROJECT_NAME}
+    wpiutil::wpiutil
+    wpimath::wpimath
+    hal::hal
+    wpinet::wpinet
+    ntcore::ntcore
+    opencv::opencv
+    cscore::cscore
+    cameraserver::cameraserver
+    nilibraries::nilibraries
     wpilibc::wpilibc
 )
