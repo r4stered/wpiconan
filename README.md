@@ -1,5 +1,4 @@
 # TODO
-- wpilibNewCommands
 
 - wpigui
 - fieldImages
