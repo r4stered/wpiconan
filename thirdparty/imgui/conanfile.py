@@ -1,6 +1,7 @@
 import os
 from conan import ConanFile
 from conan.tools.files import get, copy
+from conans.errors import ConanInvalidConfiguration
 
 
 class ImguiConan(ConanFile):
@@ -9,6 +10,12 @@ class ImguiConan(ConanFile):
     settings = "os", "arch", "build_type"
     python_requires = "wpireq/0.1"
     python_requires_extend = "wpireq.Wpibase"
+
+    def validate(self):
+        if self.settings.arch == "athena":
+            raise ConanInvalidConfiguration(
+                "This library is not compatible with the RoboRio!"
+            )
 
     def build(self):
         _os = self.get_os_name_for_url(self.settings.os)

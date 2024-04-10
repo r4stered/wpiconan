@@ -91,6 +91,13 @@ class Wpibase:
             os.path.join(self.package_folder, "bin"),
             False,
         )
+        copy(
+            self,
+            "*.pdb",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
 
 
 class WpiReq(ConanFile):

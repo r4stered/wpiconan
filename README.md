@@ -1,6 +1,5 @@
 # TODO
 
-- opencv
 - imgui
 
 - ntcore
