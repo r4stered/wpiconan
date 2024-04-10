@@ -58,6 +58,12 @@ class Wpibase:
         )
         copy(
             self,
+            "*.mac",
+            self.build_folder,
+            os.path.join(self.package_folder, "include"),
+        )
+        copy(
+            self,
             "*.so.debug",
             self.build_folder,
             os.path.join(self.package_folder, "lib"),
