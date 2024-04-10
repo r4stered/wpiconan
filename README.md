@@ -1,6 +1,4 @@
 # TODO
-- apriltag
-
 - wpilibc
 - wpilibNewCommands
 
@@ -8,7 +6,6 @@
 - fieldImages
 
 - ni-libraries
-- hal
 
 # DOWN THE LINE
 - xrp vendordep
