@@ -9,17 +9,6 @@ class TestPackageConan(ConanFile):
     generators = "CMakeToolchain", "CMakeDeps"
 
     def build_requirements(self):
-        version = (self.tested_reference_str.split("/"))[1].split("#")[0]
-        self.requires(f"wpiutil/{version}")
-        self.requires(f"wpimath/{version}")
-        self.requires(f"wpinet/{version}")
-        self.requires(f"ntcore/{version}")
-        self.requires(f"hal/{version}")
-        self.requires(f"cscore/{version}")
-        self.requires(f"cameraserver/{version}")
-        self.requires("opencv/4.8.0-2")
-        if self.settings.arch == "athena":
-            self.requires("nilibraries/2024.2.1")
         self.requires(self.tested_reference_str)
 
     def layout(self):

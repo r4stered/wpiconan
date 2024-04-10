@@ -27,6 +27,14 @@ class Wpibase:
         else:
             return ""
 
+    def get_ni_urls(self, lib_name, version, build_type):
+        _build_type = self.get_build_type_name_for_url(build_type)
+
+        base_url = f"https://frcmaven.wpi.edu/artifactory/release/edu/wpi/first/ni-libraries/{lib_name}/{version}"
+        header_url = f"{base_url}/{lib_name}-{version}-headers.zip"
+        lib_url = f"{base_url}/{lib_name}-{version}-linuxathena{_build_type}.zip"
+        return (header_url, lib_url)
+
     def get_wpi_urls(self, lib_name, version, os, arch, shared, build_type):
         _os = self.get_os_name_for_url(os)
         _arch = self.get_arch_name_for_url(arch)

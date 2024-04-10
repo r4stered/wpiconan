@@ -7,10 +7,24 @@ find_package(opencv CONFIG REQUIRED)
 find_package(cscore CONFIG REQUIRED)
 find_package(cameraserver CONFIG REQUIRED)
 find_package(wpilibc CONFIG REQUIRED)
+find_package(hal CONFIG REQUIRED)
+find_package(nilibraries CONFIG REQUIRED)
 
 if(MSVC)
     add_compile_options(/Zc:preprocessor)
 endif()
 
 add_executable(${PROJECT_NAME} test_package.cpp)
-target_link_libraries(${PROJECT_NAME} wpiutil::wpiutil ntcore::ntcore opencv::opencv cscore::cscore cameraserver::cameraserver wpilibc::wpilibc)
+
+target_link_libraries(${PROJECT_NAME} 
+    wpiutil::wpiutil 
+    wpimath::wpimath 
+    hal::hal 
+    wpinet::wpinet 
+    ntcore::ntcore 
+    opencv::opencv 
+    cscore::cscore 
+    cameraserver::cameraserver 
+    nilibraries::nilibraries 
+    wpilibc::wpilibc
+)

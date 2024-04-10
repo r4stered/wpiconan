@@ -18,6 +18,8 @@ class WpilibcConan(ConanFile):
         self.requires(f"cscore/{self.version}")
         self.requires(f"cameraserver/{self.version}")
         self.requires("opencv/4.8.0-2")
+        if self.settings.arch == "athena":
+            self.requires("nilibraries/2024.2.1")
 
     def build(self):
         header_url, lib_url = super().get_wpi_urls(
