@@ -1,9 +1,15 @@
 # BROKEN
 - fieldImages
 
-# TODO
+# TODO VENDOR DEPS
 
-- ni-libraries
+- navx
+- phoenix 5 and phoenix 6
+- revlib
+- playingwithfusion
+- pathplanner
+- photonvision
+- choreolib
 
 # DOWN THE LINE
 - xrp vendordep
