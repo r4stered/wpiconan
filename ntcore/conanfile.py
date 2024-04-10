@@ -2,13 +2,17 @@ from conan import ConanFile
 from conan.tools.files import get
 
 
-class WpiutilConan(ConanFile):
-    name = "wpiutil"
+class NtcoreConan(ConanFile):
+    name = "ntcore"
     version = "2024.3.2"
     settings = "os", "arch", "build_type"
     options = {"shared": [True, False]}
     python_requires = "wpireq/0.1"
     python_requires_extend = "wpireq.Wpibase"
+
+    def requirements(self):
+        self.requires(f"wpiutil/{self.version}")
+        self.requires(f"wpinet/{self.version}")
 
     def build(self):
         header_url, lib_url = super().get_wpi_urls(
@@ -30,4 +34,4 @@ class WpiutilConan(ConanFile):
             lib_postfix = "d"
         else:
             lib_postfix = ""
-        self.cpp_info.libs = [f"wpiutil{lib_postfix}"]
+        self.cpp_info.libs = [f"ntcore{lib_postfix}"]

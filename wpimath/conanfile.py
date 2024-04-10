@@ -43,4 +43,8 @@ class WpimathConan(ConanFile):
         )
 
     def package_info(self):
-        self.cpp_info.libs = ["wpimath"]
+        if self.settings.os == "Windows" and self.settings.build_type == "Debug":
+            lib_postfix = "d"
+        else:
+            lib_postfix = ""
+        self.cpp_info.libs = [f"wpimath{lib_postfix}"]

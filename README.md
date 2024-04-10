@@ -1,8 +1,5 @@
 # TODO
 
-- imgui
-
-- ntcore
 - ntcoreffi
 
 - cscore

@@ -29,4 +29,8 @@ class WpinetConan(ConanFile):
         super().copy_common_files()
 
     def package_info(self):
-        self.cpp_info.libs = ["wpinet"]
+        if self.settings.os == "Windows" and self.settings.build_type == "Debug":
+            lib_postfix = "d"
+        else:
+            lib_postfix = ""
+        self.cpp_info.libs = [f"wpinet{lib_postfix}"]
