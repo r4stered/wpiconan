@@ -1,6 +1,12 @@
 # BROKEN
 - fieldImages
 
+# TODO
+
+- example robot project
+- deployment script
+- build all conan packages in CI
+
 # TODO VENDOR DEPS
 
 - navx
