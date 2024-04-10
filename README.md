@@ -1,5 +1,4 @@
 # TODO
-- cameraserver
 - apriltag
 
 - wpilibc
