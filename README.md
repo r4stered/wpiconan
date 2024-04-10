@@ -1,7 +1,5 @@
 # TODO
 
-- ntcoreffi
-
 - cscore
 - cameraserver
 - apriltag
