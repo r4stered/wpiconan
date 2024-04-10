@@ -1,3 +1,7 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 #include <fmt/format.h>
 
 #include "wpinet/EventLoopRunner.h"
@@ -9,11 +13,11 @@
 namespace uv = wpi::uv;
 
 class MyHttpServerConnection : public wpi::HttpServerConnection {
- public:
+public:
   explicit MyHttpServerConnection(std::shared_ptr<uv::Stream> stream)
       : HttpServerConnection(stream) {}
 
- protected:
+protected:
   void ProcessRequest() override;
 };
 
@@ -54,7 +58,7 @@ void MyHttpServerConnection::ProcessRequest() {
 int main() {
   // Kick off the event loop on a separate thread
   wpi::EventLoopRunner loop;
-  loop.ExecAsync([](uv::Loop& loop) {
+  loop.ExecAsync([](uv::Loop &loop) {
     auto tcp = uv::Tcp::Create(loop);
 
     // bind to listen address and port

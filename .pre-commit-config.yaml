@@ -14,3 +14,11 @@ repos:
   hooks:
   - id: gersemi
     args: ["-i", "."]
+repos:
+-   repo: local
+    hooks:
+    -   id: wpiformat
+        name: wpiformat
+        entry: ./.github/workflows/run-wpiformat.py
+        language: system
+        pass_filenames: false

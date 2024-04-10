@@ -1,3 +1,7 @@
+// Copyright (c) FIRST and other WPILib contributors.
+// Open Source Software; you can modify and/or share it under the terms of
+// the WPILib BSD license file in the root directory of this project.
+
 // Dear ImGui: standalone example application for GLFW + OpenGL 3, using
 // programmable pipeline (GLFW is a cross-platform general purpose library for
 // handling windows, inputs, OpenGL/Vulkan/Metal graphics context creation,
@@ -10,10 +14,12 @@
 // folder).
 // - Introduction, links and more at the top of imgui.cpp
 
+#include <cstdio>
+
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
-#include <stdio.h>
+
 #define GL_SILENCE_DEPRECATION
 #if defined(IMGUI_IMPL_OPENGL_ES2)
 #include <GLES2/gl2.h>
@@ -38,7 +44,7 @@
 #endif
 
 static void glfw_error_callback(int error, const char *description) {
-  fprintf(stderr, "GLFW Error %d: %s\n", error, description);
+  std::fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 }
 
 // Main code
@@ -183,9 +189,9 @@ int main(int, char **) {
 
       ImGui::SliderFloat("float", &f, 0.0f,
                          1.0f); // Edit 1 float using a slider from 0.0f to 1.0f
-      ImGui::ColorEdit3(
-          "clear color",
-          (float *)&clear_color); // Edit 3 floats representing a color
+      ImGui::ColorEdit3("clear color",
+                        reinterpret_cast<float *> &
+                            clear_color); // Edit 3 floats representing a color
 
       if (ImGui::Button("Button")) // Buttons return true when clicked (most
                                    // widgets return true when edited/activated)
