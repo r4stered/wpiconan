@@ -1,6 +1,4 @@
 # TODO
-
-- wpigui
 - fieldImages
 
 - ni-libraries
