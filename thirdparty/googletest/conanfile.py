@@ -32,7 +32,21 @@ class GoogletestConan(ConanFile):
         )
         copy(
             self,
+            "*.lib",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
             "*.a",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
+            "*.pdb",
             self.build_folder,
             os.path.join(self.package_folder, "lib"),
             False,

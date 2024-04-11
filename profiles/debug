@@ -1,2 +1,5 @@
 [settings]
 build_type=Debug
+{% if detect_api.detect_os() == "Windows" %}
+compiler.runtime_type=Debug
+{% endif %}

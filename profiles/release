@@ -1,2 +1,5 @@
 [settings]
 build_type=Release
+{% if detect_api.detect_os() == "Windows" %}
+compiler.runtime_type=Release
+{% endif %}

@@ -67,6 +67,13 @@ class OpencvConan(ConanFile):
         )
         copy(
             self,
+            "*.pdb",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
             "*.dll",
             self.build_folder,
             os.path.join(self.package_folder, "bin"),

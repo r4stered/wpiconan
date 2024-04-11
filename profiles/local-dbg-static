@@ -1,4 +1,8 @@
+{% if detect_api.detect_os() == "Windows" %}
+include(windows)
+{% else %}
+include(gcc)
+{% endif %}
 include(local)
 include(debug)
 include(static)
-include(gcc)

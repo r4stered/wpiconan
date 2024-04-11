@@ -1,2 +1,6 @@
 [options]
 *:shared=True
+{% if detect_api.detect_os() == "Windows" %}
+[settings]
+compiler.runtime=dynamic
+{% endif %}
