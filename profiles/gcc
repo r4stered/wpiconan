@@ -1,6 +1,3 @@
-include(local)
-include(release)
-include(static)
 [settings]
 compiler=gcc
 compiler.cppstd=gnu20

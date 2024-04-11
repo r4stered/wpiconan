@@ -39,4 +39,8 @@ class GoogletestConan(ConanFile):
         )
 
     def package_info(self):
-        self.cpp_info.libs = ["googletest"]
+        if self.settings.build_type == "Debug":
+            lib_postfix = "d"
+        else:
+            lib_postfix = ""
+        self.cpp_info.libs = [f"googletest{lib_postfix}"]

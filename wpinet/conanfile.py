@@ -29,7 +29,7 @@ class WpinetConan(ConanFile):
         super().copy_common_files()
 
     def package_info(self):
-        if self.settings.os == "Windows" and self.settings.build_type == "Debug":
+        if self.settings.build_type == "Debug":
             lib_postfix = "d"
         else:
             lib_postfix = ""

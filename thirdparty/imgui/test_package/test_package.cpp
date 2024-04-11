@@ -189,9 +189,10 @@ int main(int, char **) {
 
       ImGui::SliderFloat("float", &f, 0.0f,
                          1.0f); // Edit 1 float using a slider from 0.0f to 1.0f
-      ImGui::ColorEdit3("clear color",
-                        reinterpret_cast<float *> &
-                            clear_color); // Edit 3 floats representing a color
+      ImGui::ColorEdit3(
+          "clear color",
+          reinterpret_cast<float *>(
+              &clear_color)); // Edit 3 floats representing a color
 
       if (ImGui::Button("Button")) // Buttons return true when clicked (most
                                    // widgets return true when edited/activated)
@@ -228,6 +229,8 @@ int main(int, char **) {
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
     glfwSwapBuffers(window);
+
+    break;
   }
 #ifdef __EMSCRIPTEN__
   EMSCRIPTEN_MAINLOOP_END;

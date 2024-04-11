@@ -8,13 +8,17 @@ find_package(cscore CONFIG REQUIRED)
 find_package(cameraserver CONFIG REQUIRED)
 find_package(wpilibc CONFIG REQUIRED)
 find_package(hal CONFIG REQUIRED)
-find_package(nilibraries CONFIG REQUIRED)
+find_package(nilibraries CONFIG)
 
 if(MSVC)
     add_compile_options(/Zc:preprocessor)
 endif()
 
 add_executable(${PROJECT_NAME} test_package.cpp)
+
+if(${nilibraries_FOUND})
+    target_link_libraries(${PROJECT_NAME} nilibraries::nilibraries)
+endif()
 
 target_link_libraries(
     ${PROJECT_NAME}
@@ -26,6 +30,5 @@ target_link_libraries(
     opencv::opencv
     cscore::cscore
     cameraserver::cameraserver
-    nilibraries::nilibraries
     wpilibc::wpilibc
 )

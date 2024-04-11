@@ -8,10 +8,6 @@
 #include "cameraserver/CameraServer.h"
 
 int main(int argc, char *argv[]) {
-  // start NetworkTables
-  auto ntinst = nt::NetworkTableInstance::GetDefault();
-  ntinst.StartServer();
-
-  auto camera = frc::CameraServer::StartAutomaticCapture();
+  // Not sure how to test camera server app
   return 0;
 }

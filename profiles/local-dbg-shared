@@ -1,0 +1,4 @@
+include(local)
+include(debug)
+include(shared)
+include(gcc)
