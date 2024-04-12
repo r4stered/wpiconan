@@ -94,4 +94,8 @@ class OpencvConan(ConanFile):
                 self.cpp_info.libs = [f"opencv{self.version[:5].replace('.', '')}"]
         else:
             self.cpp_info.libs = collect_libs(self)
-        print(self.cpp_info.libs)
+        if self.settings.os == "Windows":
+            if self.settings.build_type == "Debug":
+                self.cpp_info.cxxflags = ["/MDd"]
+            if self.settings.build_type == "Release":
+                self.cpp_info.cxxflags = ["/MD"]

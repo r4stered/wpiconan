@@ -1,0 +1,14 @@
+{
+    "remotes": [
+        {
+            "name": "team2053",
+            "url": "https://conan.team2053.org",
+            "verify_ssl": true
+        },
+        {
+            "name": "conancenter",
+            "url": "https://center.conan.io",
+            "verify_ssl": true
+        }
+    ]
+}

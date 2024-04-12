@@ -36,3 +36,8 @@ class CameraserverConan(ConanFile):
         else:
             lib_postfix = ""
         self.cpp_info.libs = [f"cameraserver{lib_postfix}"]
+        if self.settings.os == "Windows":
+            if self.settings.build_type == "Debug":
+                self.cpp_info.cxxflags = ["/MDd"]
+            if self.settings.build_type == "Release":
+                self.cpp_info.cxxflags = ["/MD"]

@@ -29,3 +29,8 @@ class WpiguiConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = ["wpigui"]
+        if self.settings.os == "Windows":
+            if self.settings.build_type == "Debug":
+                self.cpp_info.cxxflags = ["/MDd"]
+            if self.settings.build_type == "Release":
+                self.cpp_info.cxxflags = ["/MD"]

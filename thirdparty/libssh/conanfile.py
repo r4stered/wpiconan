@@ -54,3 +54,8 @@ class LibsshConan(ConanFile):
 
     def package_info(self):
         self.cpp_info.libs = [f"ssh{self.version}"]
+        if self.settings.os == "Windows":
+            if self.settings.build_type == "Debug":
+                self.cpp_info.cxxflags = ["/MDd"]
+            if self.settings.build_type == "Release":
+                self.cpp_info.cxxflags = ["/MD"]

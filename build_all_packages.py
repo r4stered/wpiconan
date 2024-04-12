@@ -59,6 +59,9 @@ packages_to_build = [
     "wpilibnewcommands",
 ]
 
+password = os.environ["CONAN_PASS"]
+subprocess.run([conan_exec, "remote", "-p", password, "team2053", "drew"])
+
 for package in packages_to_build:
     for build_type in ["dbg", "rel"]:
         for shared in ["shared", "static"]:
@@ -69,6 +72,7 @@ for package in packages_to_build:
                 package == "thirdparty/apriltaglib"
                 or package == "thirdparty/googletest"
                 or package == "thirdparty/imgui"
+                or package == "thirdparty/libssh"
             ) and shared == "shared":
                 continue
 
@@ -83,3 +87,6 @@ for package in packages_to_build:
             ).returncode
             if retVal != 0:
                 exit(1)
+    subprocess.run(
+        [conan_exec, "upload", f"{package}".rsplit("/", 1)[1], "-r=team2053"]
+    )
