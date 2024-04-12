@@ -35,10 +35,10 @@ pip_exec = venv_name + "pip"
 #     print("Virtual env folder already exists, continuing.")
 
 print("Installing conan settings.yml to include Rio arch")
-subprocess.run([conan_exec, "config", "install", "profiles/settings.yml"])
+subprocess.run([conan_exec, "config", "install", "config/settings.yml"])
 
 print("Creating common package.")
-subprocess.run([conan_exec, "create", "./wpicommon", f"--profile:all=./profiles/local"])
+subprocess.run([conan_exec, "create", "./wpicommon", f"--profile:all=./config/local"])
 
 print("Creating list of packages to create..")
 
@@ -89,7 +89,7 @@ for package in packages_to_build:
                     conan_exec,
                     "create",
                     f"./{package}",
-                    f"--profile:all=./profiles/local-{build_type}-{shared}",
+                    f"--profile:all=./config/local-{build_type}-{shared}",
                 ]
             ).returncode
             if retVal != 0:
