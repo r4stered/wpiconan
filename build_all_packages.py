@@ -13,6 +13,11 @@ def contains_subdirectory_with_os_scandir(directory):
     return False
 
 
+def extract_after_slash(input_string):
+    parts = input_string.split("/")
+    return parts[1] if len(parts) > 1 else input_string
+
+
 # venv_name = "./venv/bin/" if os.name == "posix" else "./venv/Scripts/"
 # CI doenst need venv
 venv_name = ""
@@ -90,5 +95,5 @@ for package in packages_to_build:
             if retVal != 0:
                 exit(1)
     subprocess.run(
-        [conan_exec, "upload", f"{package}".rsplit("/", 1)[1], "-r=team2053"]
+        [conan_exec, "upload", extract_after_slash(f"{package}"), "-r=team2053"]
     )
