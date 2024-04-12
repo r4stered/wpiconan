@@ -62,7 +62,7 @@ packages_to_build = [
 ]
 
 password = os.environ["CONAN_PASS"]
-subprocess.run([conan_exec, "remote", "-p", password, "team2053", "drew"])
+subprocess.run([conan_exec, "remote", "login", "-p", password, "team2053", "drew"])
 
 for package in packages_to_build:
     for build_type in ["dbg", "rel"]:
