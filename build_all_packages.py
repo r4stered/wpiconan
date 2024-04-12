@@ -13,19 +13,21 @@ def contains_subdirectory_with_os_scandir(directory):
     return False
 
 
-venv_name = "./venv/bin/" if os.name == "posix" else "./venv/Scripts/"
+# venv_name = "./venv/bin/" if os.name == "posix" else "./venv/Scripts/"
+# CI doenst need venv
+venv_name = ""
 conan_exec = venv_name + "conan"
 pip_exec = venv_name + "pip"
 
-if not os.path.isdir("venv"):
-    print("Virtual env folder not found... creating one for you.")
-    if os.name == "posix":
-        subprocess.run(["python3", "-m", "venv", "./venv"])
-    else:
-        subprocess.run(["python", "-m", "venv", "./venv"])
-    subprocess.run([pip_exec, "install", "-r", "requirements.txt"])
-else:
-    print("Virtual env folder already exists, continuing.")
+# if not os.path.isdir("venv"):
+#     print("Virtual env folder not found... creating one for you.")
+#     if os.name == "posix":
+#         subprocess.run(["python3", "-m", "venv", "./venv"])
+#     else:
+#         subprocess.run(["python", "-m", "venv", "./venv"])
+#     subprocess.run([pip_exec, "install", "-r", "requirements.txt"])
+# else:
+#     print("Virtual env folder already exists, continuing.")
 
 print("Installing conan settings.yml to include Rio arch")
 subprocess.run([conan_exec, "config", "install", "profiles/settings.yml"])
