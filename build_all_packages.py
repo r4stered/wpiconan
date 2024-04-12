@@ -12,13 +12,14 @@ def contains_subdirectory_with_os_scandir(directory):
                 return True
     return False
 
-venv_name = "./venv/bin/" if os.name == 'posix' else "./venv/Scripts/"
+
+venv_name = "./venv/bin/" if os.name == "posix" else "./venv/Scripts/"
 conan_exec = venv_name + "conan"
 pip_exec = venv_name + "pip"
 
 if not os.path.isdir("venv"):
     print("Virtual env folder not found... creating one for you.")
-    if os.name == 'posix':
+    if os.name == "posix":
         subprocess.run(["python3", "-m", "venv", "./venv"])
     else:
         subprocess.run(["python", "-m", "venv", "./venv"])
@@ -61,14 +62,14 @@ packages_to_build = [
 for package in packages_to_build:
     for build_type in ["dbg", "rel"]:
         for shared in ["shared", "static"]:
-
             if package == "ntcoreffi" and shared == "static":
                 continue
 
-            if (package == "thirdparty/apriltaglib" or 
-                package == "thirdparty/googletest" or
-                package == "thirdparty/imgui" or
-                package == "thirdparty/opencv") and shared == "shared":
+            if (
+                package == "thirdparty/apriltaglib"
+                or package == "thirdparty/googletest"
+                or package == "thirdparty/imgui"
+            ) and shared == "shared":
                 continue
 
             print(f"Building {package} + {build_type} + {shared}...")
