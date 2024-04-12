@@ -33,5 +33,6 @@ jobs:
       env:
         CONAN_PASS: ${{ secrets.CONAN_PASS }}
       run: |
+        conan config install ./profiles/remotes.json
         python ./build_all_packages.py
         
