@@ -19,6 +19,9 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+    # to get around broken windows runner
+    - if: runner.os == 'Windows'
+      uses: TheMrMilchmann/setup-msvc-dev@v3
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
