@@ -60,6 +60,13 @@ class OpencvConan(ConanFile):
         )
         copy(
             self,
+            "*.dylib",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
+        copy(
+            self,
             "*.a",
             self.build_folder,
             os.path.join(self.package_folder, "lib"),

@@ -112,6 +112,13 @@ class Wpibase:
             os.path.join(self.package_folder, "lib"),
             False,
         )
+        copy(
+            self,
+            "*.dylib",
+            self.build_folder,
+            os.path.join(self.package_folder, "lib"),
+            False,
+        )
 
 
 class WpiReq(ConanFile):
