@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import argparse
 import subprocess
 import os
 from itertools import chain
@@ -18,27 +19,33 @@ def extract_after_slash(input_string):
     return parts[1] if len(parts) > 1 else input_string
 
 
-# venv_name = "./venv/bin/" if os.name == "posix" else "./venv/Scripts/"
-# CI doenst need venv
-venv_name = ""
-conan_exec = venv_name + "conan"
-pip_exec = venv_name + "pip"
+parser = argparse.ArgumentParser(
+    prog="WpiConanBuilder",
+    description="Builds and uploads all conan packages for WPI",
+    epilog="BOTTOM TEXT",
+)
 
-# if not os.path.isdir("venv"):
-#     print("Virtual env folder not found... creating one for you.")
-#     if os.name == "posix":
-#         subprocess.run(["python3", "-m", "venv", "./venv"])
-#     else:
-#         subprocess.run(["python", "-m", "venv", "./venv"])
-#     subprocess.run([pip_exec, "install", "-r", "requirements.txt"])
-# else:
-#     print("Virtual env folder already exists, continuing.")
+parser.add_argument("-e", "--env", action="store")
+args = parser.parse_args()
+
+
+if args.env:
+    venv_name = args.env
+    venv_name = (
+        os.path.join(venv_name, "bin/")
+        if os.name == "posix"
+        else os.path.join(venv_name, "Scripts/")
+    )
+else:
+    venv_name = ""
+conan_exec = os.path.join(venv_name, "conan")
+pip_exec = os.path.join(venv_name, "pip")
 
 print("Installing conan settings.yml to include Rio arch")
 subprocess.run([conan_exec, "config", "install", "config/settings.yml"])
 
 print("Creating common package.")
-subprocess.run([conan_exec, "create", "./wpicommon", f"--profile:all=./config/local"])
+subprocess.run([conan_exec, "create", "./wpicommon", "--profile:all=./config/local"])
 
 print("Creating list of packages to create..")
 
